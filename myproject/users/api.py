@@ -1,6 +1,7 @@
 from ninja import Router
 from myproject.common import response, Error, TokenMethod
 from django.contrib.auth.models import User
+from django.contrib import auth
 from users.api_schema import RegisterIn, LoginIn
 import pickle
 import base64
