@@ -63,7 +63,7 @@ export const constantRoutes = [
         path: 'index',
         name: 'settingTab',
         component: () => import('@/views/settingTab/index'),
-        meta: { title: '配置管理', icon: 'el-icon-s-help'}
+        meta: { title: '配置管理', icon: 'el-icon-s-help' }
       }
     ]
   },
@@ -76,10 +76,10 @@ export const constantRoutes = [
         path: 'index',
         name: 'Report',
         component: () => import('@/views/report/index'),
-        meta: { title: '报告管理', icon: 'form' ,keepAlive:true}
+        meta: { title: '报告管理', icon: 'form', keepAlive: true }
       }
     ]
-  },
+  }
 
   // 自带模板example注释
   // {

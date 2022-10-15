@@ -36,16 +36,13 @@ const mutations = {
 //   }
 // }
 
-
-
-
 const actions = {
   // user login
   login({ commit }, userInfo) {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password: password }).then(response => {
-        console.log("经过响应拦截器后：",response)
+        console.log('经过响应拦截器后：', response)
         const { data } = response // 等价于const data = response.data
         commit('SET_TOKEN', data.result.token)
         setToken(data.result.token)
@@ -100,11 +97,10 @@ const actions = {
   }
 }
 
-
 export default {
   namespaced: true,
   state,
   mutations,
-  actions,
+  actions
 }
 

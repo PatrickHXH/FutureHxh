@@ -12,7 +12,7 @@ class ReportApi {
     return request({
       url: '/api/reports/list/',
       method: 'get',
-      params:data
+      params: data
     })
   }
 }
