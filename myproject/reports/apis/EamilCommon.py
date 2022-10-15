@@ -1,7 +1,9 @@
 import datetime
 import poplib
 from email.parser import Parser
+# 解码头部
 from email.header import decode_header
+# 解析地址
 from email.utils import parseaddr
 import os
 
@@ -23,7 +25,7 @@ class email:
         return server
 
     #根据id获取邮件原始文本
-    def get_origin_text(id,email_user,password,pop3_server): #
+    def get_origin_text(id:int,email_user,password,pop3_server): #
         server = email.email_login(email_user,password,pop3_server)
         resp, lines, octets= server.retr(id)
         msg_content = b'\r\n'.join(lines).decode('utf-8')
@@ -91,7 +93,7 @@ class email:
     def save_att_file(msg,save_path):
         for part in msg.walk():
             file_name = part.get_filename()
-            print(file_name)
+            print("filename:",file_name)
             attachment_files = []
             if file_name:
                 file_name = email.decode_str(file_name )
@@ -101,6 +103,9 @@ class email:
                 att_file.write(data)
                 att_file.close()
                 print(f"附件 {file_name} 下载完成")
+                return  file_name
+        if file_name is None:
+            return None
 
     #查询邮箱报告
     def get_reportlist(source,time,email_user,password,pop3_server):
@@ -109,16 +114,23 @@ class email:
         server = email.email_login(email_user,password,pop3_server)
         email_num,email_size =server.stat()
         reportlist = []
-        for i in range(email_num,0,-1):
+        for i in range(email_num,70,-1):
             list = []
             msg = email.get_origin_text(i,email_user,password,pop3_server)
             analysis_msg = email.parse_msg(msg)
-            if "Text" not  in analysis_msg.keys() or "测试报告" not in analysis_msg["Subject"]:
+            if "Text" not  in analysis_msg.keys() or "Subject"not  in analysis_msg.keys() or "测试报告" not in analysis_msg["Subject"] :
                 continue
-            else:
-                if  source in analysis_msg["Text"] and time in analysis_msg["Subject"]:
-                    analysis_msg["email_id"] = i
-                    list = [i,analysis_msg]
-                    reportlist.append(list)
-                    break
+            if  source in analysis_msg["Text"] and time in analysis_msg["Subject"]:
+                analysis_msg["email_code"] = i
+                list = [i,analysis_msg]
+                reportlist.append(list)
+                break
+            if i==70:
+                return reportlist
         return reportlist[-1][-1]
+
+    #获取邮箱id数，大小
+    def get_email_info(email_user,password,pop3_server):
+        server = email.email_login(email_user,password,pop3_server)
+        email_num,email_size =server.stat()
+        return email_num,email_size

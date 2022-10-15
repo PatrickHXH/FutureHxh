@@ -2,7 +2,7 @@ from ninja import Router
 from myproject.common import response, Error, TokenMethod
 from django.contrib.auth.models import User
 from django.contrib import auth
-from users.api_schema import RegisterIn, LoginIn
+from users.api_schema import RegisterIn, LoginIn,TokenIn,TokenOut
 import pickle
 import base64
 import json
@@ -13,7 +13,7 @@ from django.core.cache import cache
 
 router = Router(tags=["users"])
 
-# Create your views here.
+# 注册
 @router.post("/register",auth=None)
 def user_register(request,payload:RegisterIn):
     if payload.password != payload.confirm_password:
@@ -31,7 +31,8 @@ def user_register(request,payload:RegisterIn):
     }
     return response(result=user_info)
 
-@router.post("/users",auth=None)
+#登陆
+@router.post("/login",auth=None)
 def testtoken(request,data:LoginIn):
     """
     假设，必须要登录之后才能访问
@@ -54,3 +55,24 @@ def testtoken(request,data:LoginIn):
             return response(result = user_info)
         else:
             return response(error=Error.USER_OR_PAWD_EROOR)
+
+#获取用户信息
+@router.post("/getinfo/")
+def get_info(request,data:TokenIn):
+    token = data.token
+    lasttoken = TokenMethod.check_token(token)
+    username = TokenMethod.get_username(token)
+    info = {
+        "username":username,
+        "checkout":lasttoken
+    }
+    return response(result=info)
+
+#登出
+@router.post("/logout/")
+def delete_token(request,data:TokenOut):
+    '''
+    退出登陆
+    '''
+    TokenMethod.delete_token(data.username)
+    return  response()

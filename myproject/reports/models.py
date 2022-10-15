@@ -1,30 +1,41 @@
 from django.db import models
 import datetime
 
+class EmailManage(models.Model):
+    email = models.CharField("邮箱", max_length=50,null=False)
+    code = models.CharField("邮箱授权码",max_length=50,null=False)
+    server = models.CharField("服务器地址",max_length=50,null=False)
+    update_time = models.DateTimeField("更新时间",auto_now=True)
+    create_time = models.DateTimeField("创建时间",auto_now_add=True)
+
+
+    def __str__(self):
+        return self.email
+
+class ProjectManage(models.Model):
+    name = models.CharField("项目名称", max_length=50,null=False)
+    keyword = models.CharField("关键字", max_length=50,default="")
+    update_time = models.DateTimeField("更新时间",auto_now=True)
+    create_time = models.DateTimeField("创建时间",auto_now_add=True)
+
+    def __str__(self):
+        return self.project
+
 class SearchReportLog(models.Model):
+    project = models.ForeignKey(ProjectManage, on_delete=models.CASCADE)
     subject = models.CharField("测试报告名称",max_length=50,null=True)
     sender = models.CharField("发送人",max_length=50,null=True)
     receive = models.CharField("接收人",max_length=50,null=True)
     text = models.TextField("正文",null=True)
-    source = models.CharField("来源", max_length=50,null=True)
-    email_id = models.IntegerField("邮件id",null=True)
     report_time = models.DateField("报告时间", null=True)
+    report_dir = models.CharField("报告路径", max_length=500,null=True)
+    lastest =models.BooleanField("是否最新",default=True)
     update_time = models.DateTimeField("更新时间",auto_now=True)
     create_time = models.DateTimeField("创建时间",auto_now_add=True)
 
     def __str__(self):
         return self.subject
 
-class EmailManage(models.Model):
-    email = models.CharField("邮箱", max_length=50,null=False)
-    code = models.CharField("邮箱授权码",max_length=50,null=False)
-    server = models.CharField("服务器地址",max_length=50,null=False)
-    is_delete = models.IntegerField("删除",default=0)
-    update_time = models.DateTimeField("更新时间",auto_now=True)
-    create_time = models.DateTimeField("创建时间",auto_now_add=True)
-
-    def __str__(self):
-        return self.email
 
 
 

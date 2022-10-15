@@ -18,11 +18,13 @@ class Error:
     PAWD_ERROR = {"10012":"两次密码不一致"}
     USER_EXIST = {"10013":"用户已被注册"}
 
-    USER_OR_PAWD_OR_SERVER_ERROR = {"10014":"请填写正确的邮箱、授权码、服务器"}
-    DATE_FORMAT_ERROR = {"10015":"日期格式错误,正确例子：xxxx-xx-xx"}
+    USER_OR_PAWD_OR_SERVER_ERROR = {"10014":"请填写正确的关键词、报告时间、邮箱、授权码、服务器"}
     REPORT_LIST_NONE ={"10016":"没有查询到报告"}
-    SEARCH_REPORT_TIME_BEYOND ={"10017":"超出查询范围，只允许查询≤90天"}
     SOURCE_OR_DATE_ERROR = {"10018":"来源或日期格式错误"}
+    EMAIL_ID_NOT_EXISTS = {"10019":"邮箱不存在"}
+    EMAIL_ATT_NOT_EXISTS = {"10019": "邮箱不存在附件"}
+
+    PROJECT_ID_NOT_EXISTS = {"10019": "项目不存在"}
 
 def response(success:bool = True, error = None, result=[]):
     if error is None:
@@ -99,3 +101,8 @@ class TokenMethod:
         if last_token:
             return last_token == token
         return False
+
+    # 删除token
+    def delete_token(username):
+        # username = TokenMethod.get_username(token)
+        cache.delete("%s"%(username))

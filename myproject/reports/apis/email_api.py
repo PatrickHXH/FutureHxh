@@ -31,9 +31,11 @@ def update_email(request,id:int,data:EmailIn):
 #删除邮件
 @router.post("/delete/{id}/")
 def delete_email(request,id:int):
-        obj = get_object_or_404(EmailManage, id=id)
-        obj.is_delete = 1
-        obj.save()
+        try:
+                get_object_or_404(EmailManage, id=id)
+                EmailManage.objects.filter(id=id).delete()
+        except:
+                return response(error=Error.EMAIL_ID_NOT_EXISTS)
         return response()
 
 #获取邮件详情
@@ -46,5 +48,5 @@ def get_email(request,id:int):
 @router.get("/list/",response=List[EmailOut])
 @paginate(CustomPagination)
 def email_list(request):
-        obj =EmailManage.objects.filter(is_delete=0).all()
+        obj =EmailManage.objects.filter().all()
         return obj

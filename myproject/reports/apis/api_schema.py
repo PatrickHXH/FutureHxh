@@ -2,34 +2,34 @@ from ninja import Schema
 from enum import Enum
 from typing import  List,Any
 
-class SourceType(str,Enum):
-    VCDUI = "V车店UI"
-    VCDAPI = "V车店API"
-    VQDAPI = "V渠道API"
-    CXGJUI = "车险管家UI"
 
-class SearchReport(Schema):
+class SearchReportIn(Schema):
     """获取报告列表入参"""
-    source:SourceType
-    reportime:str
-    email_user:str
-    password:str
-    server:str
+    project_id:int
+    email_id:int
 
 
-class ReaportLogIn(Schema):
-    source:SourceType
-    reportime:str
+class ProjectSchema(Schema):
+    id: int
+    name: str
+    keyword:str
 
-class ReaportLogOut(Schema):
-    id:int
+class SearchReportLogOut(Schema):
+    """获取报告列表出参"""
+    subject:str
     sender:str
     receive:str
-    # text:Any
-    source:SourceType
     report_time:Any
-    create_time: Any
+    report_dir:str
+    project:ProjectSchema=None
+    lastest:bool
     update_time: Any
+    create_time: Any
+
+
+class DownloadReportIn(Schema):
+    email_code:int
+    email_id:int
 
 class EmailIn(Schema):
     email:str
@@ -43,3 +43,15 @@ class EmailOut(Schema):
     server: str
     create_time: Any
     update_time: Any
+
+class ProjectIn(Schema):
+    name:str
+    keyword:str
+
+class ProjectOut(Schema):
+    id:int
+    name:str
+    keyword:str
+    create_time: Any
+    update_time: Any
+

@@ -12,3 +12,8 @@ class LoginIn(Schema):
     username: str
     password: str
 
+class TokenIn(Schema):
+    token:str
+
+class TokenOut(Schema):
+    username:str
