@@ -127,13 +127,13 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 # 项目上传文件
-REPORT_DIR = os.path.join(BASE_DIR, "static", "reports")
+REPORT_DIR = os.path.join(BASE_DIR, "backendstatic", "reports")
 
 # 设置静态目录
-STATIC_URL = '/static/'
+STATIC_URL = '/backendstatic/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "backendstatic"),
 ]
 
 # Default primary key field type

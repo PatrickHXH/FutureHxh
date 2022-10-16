@@ -44,12 +44,12 @@ module.exports = {
           "^/api": "", //请求的时候使用这个api就可以
         },
       },
-      "/static": {
-        target: "http://localhost:8000/static/", //这里后台的地址模拟的;应该填写你们真实的后台接口
+      "/backendstatic": {
+        target: "http://localhost:8000/backendstatic/", //这里后台的地址模拟的;应该填写你们真实的后台接口
         ws: true,
         changOrigin: true, //允许跨域
         pathRewrite: {
-          "^/static": "", //请求的时候使用这个api就可以
+          "^/backendstatic": "", //请求的时候使用这个api就可以
         },
       }
     },

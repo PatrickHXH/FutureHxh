@@ -38,7 +38,7 @@ def search_project_report(request,data:SearchReportIn):
         msg_origin = email.get_origin_text(email_code,email_obj.email,email_obj.code,email_obj.server)         #邮件原文
         att_result = email.save_att_file(msg_origin,REPORT_DIR)         #下载附件
         if att_result is not None:
-                report_dir = os.path.join("/static/reports/",att_result)
+                report_dir = os.path.join("/backendstatic/reports/",att_result)
                 print(report_dir)
         else:
                 return response(error=Error.EMAIL_ATT_NOT_EXISTS)
