@@ -58,7 +58,7 @@ CORS_ORIGIN_WHITELIST = (
     'http://121.4.54.4:9528'
 )
 CORS_ALLOW_CREDENTIALS = True  # 允许携带cookie
-
+CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'myproject.urls'
 
