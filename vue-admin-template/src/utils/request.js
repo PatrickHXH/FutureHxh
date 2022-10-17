@@ -76,29 +76,17 @@ service.interceptors.response.use(
   },
   error => {
     console.log('err' + error) // for debug
-    Message({
-      message: error.message,
-      type: 'error',
-      duration: 5 * 1000
-    })
+    // Message({
+    //   message: error.message,
+    //   type: 'error',
+    //   duration: 5 * 1000
+    // })
+      if (error.response.data.status === 402 || error.response.data.status === 401) {
+      Message.error(new Error("token失效"));
+      this.$router.push({ path: "/login" });
+    }
     return Promise.reject(error)
   }
-  // function (res) {
-  //   // // 2xx 范围内的状态码都会触发该函数,对响应数据做点什么
-  //   console.log(res)
-  //   return res
-  // },
-  // function (error) {
-  //   // 超出 2xx 范围的状态码都会触发该函数。
-  //   // 对响应错误做点什么
-  //   console.log("返回错误", error);
-  //   if (error.response.status === 401) {
-  //     Message.error(new Error("token失效"));
-  //     this.$router.push({ path: "/login" });
-  //     // sessionStorage.removeItem("token");
-  //   }
-  //   return Promise.reject(error);
-  // }
 )
 
 export default service
