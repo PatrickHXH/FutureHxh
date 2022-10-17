@@ -22,8 +22,8 @@ class GlobalAuth(HttpBearer):
         else:
             return token
 
-# api = NinjaAPI(auth=GlobalAuth())
-api = NinjaAPI()
+api = NinjaAPI(auth=GlobalAuth())
+# api = NinjaAPI()
 
 # 自定义异常，改变出现错误时返回值
 # @api.exception_handler(OverdueToken)
