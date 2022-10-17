@@ -114,7 +114,7 @@ class email:
         server = email.email_login(email_user,password,pop3_server)
         email_num,email_size =server.stat()
         reportlist = []
-        for i in range(email_num,70,-1):
+        for i in range(email_num,69,-1):
             list = []
             msg = email.get_origin_text(i,email_user,password,pop3_server)
             analysis_msg = email.parse_msg(msg)
@@ -126,6 +126,7 @@ class email:
                 reportlist.append(list)
                 break
             if i==70:
+                print("你好")
                 return reportlist
         return reportlist[-1][-1]
 

@@ -30,7 +30,7 @@ def search_project_report(request,data:SearchReportIn):
                 result = email.get_reportlist(project_obj.keyword,reportime,email_obj.email,email_obj.code,email_obj.server)
         except:
                 return response(error=Error.USER_OR_PAWD_OR_SERVER_ERROR)
-        if result ==[] or result == None:
+        if result == [] or result == None:
                 return response(error=Error.REPORT_LIST_NONE)
         email_code = result["email_code"]
         #下载附件
