@@ -115,7 +115,8 @@ export default {
       projectvalue: 1,
       emailvalue: 1,
       tableData: [],
-      loading: false
+      loading: false,
+      total: 0
     }
   },
   created() {
@@ -158,7 +159,7 @@ export default {
       if (resp.data.success === true) {
         this.projectvalue = resp.data.items[0].id
         this.projectlabel = resp.data.items[0].name
-        this.total = resp.data.total
+        // this.total = resp.data.total
         for (let i = 0; i < resp.data.items.length; i++) {
           this.projectoptions.push({
             // value为id label为内容
@@ -177,7 +178,7 @@ export default {
       if (resp.data.success === true) {
         this.emailvalue = resp.data.items[0].id
         this.emaillabel = resp.data.items[0].email
-        this.total = resp.data.total
+        // this.total = resp.data.total
         for (let i = 0; i < resp.data.items.length; i++) {
           this.emailoptions.push({
             // value为id label为内容
@@ -221,6 +222,7 @@ export default {
             report_dir: resp.data.items[i].report_dir
           })
         }
+        this.total = resp.data.total
       } else {
         this.$message.error('查询失败!')
       }
