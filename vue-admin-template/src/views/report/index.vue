@@ -1,6 +1,7 @@
 <template>
   <div class="app-container" style="height:calc(95vh)">
     <el-card style="width: 100%;height: 100%;">
+      <!-- 选择框 -->
       <el-form ref="ruleForm" :model="ruleForm" :inline="true" :rules="rules" class="demo-ruleForm">
         <el-form-item label="项目" prop="projectlabel">
           <el-select v-model="ruleForm.projectlabel" placeholder="请选择项目" @change="changeproject">
@@ -29,6 +30,7 @@
           <el-button @click="resetForm('ruleForm')">重置</el-button>
         </el-form-item>
       </el-form>
+      <!-- 查询记录列表 -->
       <div>
         <h3>查询记录：</h3>
         <el-table
@@ -55,6 +57,17 @@
             </template>
           </el-table-column>
         </el-table>
+      </div>
+      <!-- 分页 -->
+      <div style="text-align:center;position: fixed; left:calc(42vw);bottom: calc(5vh);">
+        <el-pagination
+          background
+          :page-size="req.size"
+          :total="total"
+          style="margin: 10px"
+          cy-data="EmailPagination"
+          @current-change="handleCurrentChange"
+        />
       </div>
     </el-card>
   </div>
@@ -222,11 +235,17 @@ export default {
       }
       return ''
     },
+    //打开测试报告
     handleClick(row) {
       console.log(row.report_dir)
       // window.location.href = report_dir
       window.open(row.report_dir)
-    }
+    },
+    // 跳到第几页
+    handleCurrentChange(val) {
+      this.req.page = val
+      this.initSearchReportLog()
+    },
   }
 }
 </script>
