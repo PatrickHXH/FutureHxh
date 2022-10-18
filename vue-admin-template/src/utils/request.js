@@ -81,9 +81,9 @@ service.interceptors.response.use(
     //   type: 'error',
     //   duration: 5 * 1000
     // })
-      if (error.response.data.status === 402 || error.response.data.status === 401) {
-      Message.error(new Error("token失效"));
-      this.$router.push({ path: "/login" });
+    if (error.response.data.status === 402 || error.response.data.status === 401) {
+      Message.error(new Error('token失效'))
+      this.$router.push({ path: '/login' })
     }
     return Promise.reject(error)
   }

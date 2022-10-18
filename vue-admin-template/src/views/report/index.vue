@@ -235,7 +235,7 @@ export default {
       }
       return ''
     },
-    //打开测试报告
+    // 打开测试报告
     handleClick(row) {
       console.log(row.report_dir)
       // window.location.href = report_dir
@@ -245,7 +245,7 @@ export default {
     handleCurrentChange(val) {
       this.req.page = val
       this.initSearchReportLog()
-    },
+    }
   }
 }
 </script>
