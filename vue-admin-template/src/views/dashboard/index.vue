@@ -6,8 +6,7 @@
 
 <script>
 // import { mapGetters } from 'vuex'
-import { getInfo } from '@/api/user'
-import TokenKey from '@/utils/auth'
+import {UserKey} from '@/utils/auth'
 import Cookies from 'js-cookie'
 export default {
   data() {
@@ -16,14 +15,9 @@ export default {
     }
   },
   created() {
-    this.GetInfo()
+    this.user =Cookies.get(UserKey).username
   },
   methods: {
-    async GetInfo() {
-      this.token_obj = Cookies.get(TokenKey)
-      const resp = await getInfo({ token: this.token_obj.vue_admin_token })
-      this.user = resp.data.result.username
-    }
   }
 }
 </script>

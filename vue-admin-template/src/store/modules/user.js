@@ -1,5 +1,5 @@
 import { login, getInfo, logout } from '@/api/user'
-import { getToken, setToken, removeToken } from '@/utils/auth'
+import { getToken, setToken, removeToken,setName } from '@/utils/auth'
 import { resetRouter } from '@/router'
 
 const getDefaultState = () => {
@@ -66,6 +66,7 @@ const actions = {
         console.log(username, checkout)
         commit('SET_NAME', username)
         commit('SET_AVATAR', checkout)
+        setName (username)
         resolve(data)
       }).catch(error => {
         reject(error)
