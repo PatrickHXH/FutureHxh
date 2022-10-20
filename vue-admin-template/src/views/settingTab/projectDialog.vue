@@ -27,7 +27,8 @@
 import ProjectApi from '@/api/project'
 import { Message } from 'element-ui'
 export default {
-  props: ['tid', 'pid'],
+  // props: ['tid', 'pid'],
+  props: { tid: { type: Object, default: null }, pid: { type: Object, default: null }},
   data() {
     return {
       dialogVisible: true,

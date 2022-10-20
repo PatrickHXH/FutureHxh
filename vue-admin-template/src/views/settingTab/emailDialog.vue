@@ -30,7 +30,8 @@
 import EmailApi from '@/api/email'
 import { Message } from 'element-ui'
 export default {
-  props: ['tid', 'eid'],
+  // props: ['tid', 'eid'],
+  props: { tid: { type: Object, default: null }, eid: { type: Object, default: null }},
   data() {
     return {
       dialogVisible: true,
