@@ -66,7 +66,7 @@ const actions = {
         console.log(username, checkout)
         commit('SET_NAME', username)
         commit('SET_AVATAR', checkout)
-        setName (username)
+        setName(username)
         resolve(data)
       }).catch(error => {
         reject(error)
