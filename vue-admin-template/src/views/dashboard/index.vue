@@ -6,7 +6,7 @@
 
 <script>
 // import { mapGetters } from 'vuex'
-import {UserKey} from '@/utils/auth'
+import { UserKey } from '@/utils/auth'
 import Cookies from 'js-cookie'
 export default {
   data() {
@@ -15,7 +15,7 @@ export default {
     }
   },
   created() {
-    this.user =Cookies.get(UserKey).username
+    this.user = Cookies.get(UserKey).username
   },
   methods: {
   }
