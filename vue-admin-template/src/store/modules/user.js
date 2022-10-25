@@ -1,5 +1,5 @@
 import { login, getInfo, logout } from '@/api/user'
-import { getToken, setToken, removeToken,setName } from '@/utils/auth'
+import { getToken, setToken, removeToken, setName } from '@/utils/auth'
 import { resetRouter } from '@/router'
 
 const getDefaultState = () => {
