@@ -23,6 +23,7 @@ class SearchReportLogOut(Schema):
     report_dir:str
     project:ProjectSchema=None
     lastest:bool
+    existfail:bool
     update_time: Any
     create_time: Any
 
