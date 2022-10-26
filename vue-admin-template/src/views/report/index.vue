@@ -46,8 +46,8 @@
           <el-table-column prop="sender" label="发送" />
           <el-table-column prop="receive" label="接收" />
           <el-table-column prop="report_time" label="报告时间" />
-          <el-table-column prop="update_time" label="更新时间" />
-          <el-table-column prop="create_time" label="创建时间" />
+          <!-- <el-table-column prop="update_time" label="更新时间" />
+          <el-table-column prop="create_time" label="创建时间" /> -->
           <el-table-column prop="lastest" label="最新" />
           <!-- <el-table-column prop="report_dir" label="详情"></el-table-column> -->
           <el-table-column fixed="right" label="操作" width="100">
@@ -216,8 +216,8 @@ export default {
             sender: resp.data.items[i].sender,
             receive: resp.data.items[i].receive,
             report_time: resp.data.items[i].report_time,
-            update_time: resp.data.items[i].update_time,
-            create_time: resp.data.items[i].create_time,
+            // update_time: resp.data.items[i].update_time,
+            // create_time: resp.data.items[i].create_time,
             lastest: lastest,
             report_dir: resp.data.items[i].report_dir
           })
