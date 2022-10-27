@@ -6,6 +6,7 @@ from email.header import decode_header
 # 解析地址
 from email.utils import parseaddr
 import os
+import time
 
 class email:
     #连接邮箱
@@ -52,6 +53,12 @@ class email:
     #解析邮件
     def parse_msg(msg):
         parse_msg_dict = {}
+        #解析时间
+        Received = msg.get("Received",'')
+        date = Received.split(',')[-1]
+        a = time.strptime(date, ' %d %b %Y %H:%M:%S %z')
+        date = str(a.tm_year)+"-"+str(a.tm_mon)+"-"+str(a.tm_mday)
+        parse_msg_dict["Date"] = date
         #解析邮件头
         for header in ['From','To','Subject']:  # 遍历获取发件人，收件人，主题的相关信息
             value = msg.get(header,'')  #获取遍历的相应内容
@@ -114,20 +121,21 @@ class email:
         server = email.email_login(email_user,password,pop3_server)
         email_num,email_size =server.stat()
         reportlist = []
+        j = 0
         for i in range(email_num,69,-1):
+            j = j + 1
             list = []
+            if j==21:
+                return reportlist
             msg = email.get_origin_text(i,email_user,password,pop3_server)
             analysis_msg = email.parse_msg(msg)
             if "Text" not  in analysis_msg.keys() or "Subject"not  in analysis_msg.keys() or "测试报告" not in analysis_msg["Subject"] :
                 continue
-            if  source in analysis_msg["Text"] and time in analysis_msg["Subject"]:
+            if  source in analysis_msg["Text"] and time in analysis_msg["Date"]:
                 analysis_msg["email_code"] = i
                 list = [i,analysis_msg]
                 reportlist.append(list)
                 break
-            if i==70:
-                print("你好")
-                return reportlist
         return reportlist[-1][-1]
 
     #获取邮箱id数，大小
