@@ -7,9 +7,8 @@ from myproject.settings import BASE_DIR
 def Exist_Fail(Test_Path):
     with open(Test_Path,"r") as f:
         soup = BeautifulSoup(f,'html.parser')
-        text_warning = soup.find("span",class_="badge badge-pill bg-soft-warning text-warning me-2")
-        text_danger= soup.find("span",class_="badge badge-pill bg-soft-danger text-danger me-2")
-        if "失败:0" in text_warning and "错误:0" in text_danger:
-            return False
-        else:
+        text = soup.find_all(text=True)
+        if  "失败:0" not in text or "错误:0" not in text:
             return True
+        else:
+            return False
