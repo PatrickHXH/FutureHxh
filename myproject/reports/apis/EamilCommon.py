@@ -125,7 +125,8 @@ class email:
         for i in range(email_num,69,-1):
             j = j + 1
             list = []
-            if j==21:
+            if j==101:
+                print("报告为空")
                 return reportlist
             msg = email.get_origin_text(i,email_user,password,pop3_server)
             analysis_msg = email.parse_msg(msg)
