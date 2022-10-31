@@ -8,7 +8,7 @@ def Exist_Fail(Test_Path):
     with open(Test_Path,"r") as f:
         soup = BeautifulSoup(f,'html.parser')
         text = soup.find_all(text=True)
-        if  "失败:0" not in text or "错误:0" not in text:
-            return True
-        else:
+        if  "失败:0" in text and "错误:0"  in text:
             return False
+        else:
+            return True
