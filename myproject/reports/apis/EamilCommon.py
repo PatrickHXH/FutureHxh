@@ -58,7 +58,9 @@ class email:
         date = Received.split(',')[-1]
         a = time.strptime(date, ' %d %b %Y %H:%M:%S %z')
         date = str(a.tm_year)+"-"+str(a.tm_mon)+"-"+str(a.tm_mday)
-        parse_msg_dict["Date"] = date
+        strTime = datetime.datetime.strptime(date,"%Y-%m-%d")
+        strTime = str(strTime).split(" ")[0]
+        parse_msg_dict["Date"] = strTime
         #解析邮件头
         for header in ['From','To','Subject']:  # 遍历获取发件人，收件人，主题的相关信息
             value = msg.get(header,'')  #获取遍历的相应内容
