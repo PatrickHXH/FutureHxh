@@ -22,7 +22,7 @@ class ProjectManage(models.Model):
     create_time = models.DateTimeField("创建时间",auto_now_add=True)
 
     def __str__(self):
-        return self.project
+        return self.name
 
 class SearchReportLog(models.Model):
     project = models.ForeignKey(ProjectManage, on_delete=models.CASCADE)
