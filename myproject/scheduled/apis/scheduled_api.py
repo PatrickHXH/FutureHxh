@@ -8,10 +8,13 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.cron import CronTrigger
 from django_apscheduler.jobstores import DjangoJobStore, register_events, register_job
 from scheduled.jobs.SearchReportJob import Search_Report
-from scheduled.apis.api_schema import RemoveJobIn,PauseJobIn,JobListOut,ResumeJobIn,CreateJonIn
+from scheduled.apis.api_schema import RemoveJobIn,PauseJobIn,JobListOut,ResumeJobIn,CreateJonIn,JobSchema
 from django_apscheduler.models import DjangoJob, DjangoJobExecution
+from scheduled.models import DjangoJobExtend
 from myproject.pagination import CustomPagination
 from ninja.pagination import paginate,PageNumberPagination  #分页
+from django.forms.models import model_to_dict
+import base64
 from typing import  List,Any
 import os
 import datetime
@@ -31,13 +34,18 @@ def createjob(request,data:CreateJonIn):
         trigger = data.trigger
         #触发时间
         crontab = data.crontab
+        #描述
+        describe=data.describe
         try:
                 scheduler.add_job(globals()[excutefun], CronTrigger.from_crontab(crontab))
                 register_events(scheduler)
                 scheduler.start()
-                return response()
         except:
-                return response()
+                pass
+        obj = DjangoJob.objects.last()
+        DjangoJobExtend.objects.create(job_id=obj.id,describe=describe)
+        return response(result=obj.id)
+
 
 #移除定时任务
 @router.post("/removejob/")
@@ -72,10 +80,21 @@ def resumejob(request,data:ResumeJobIn):
                 scheduler.resume_job(data.id)
                 return response()
 
-#获取任务
+#获取任务列表
 @router.get("/joblist/",response=List[JobListOut])
 @paginate(CustomPagination)
 def getjobs(request):
-        obj = DjangoJob.objects.all()
+        obj = DjangoJobExtend.objects.all()
         return obj
+
+#获取任务详情
+@router.get("/jobdetail/{id}/")
+def getjobdetail(request,id:int):
+        obj = DjangoJobExtend.objects.get(id=id)
+        obj_job = DjangoJob.objects.get(id=obj.job_id)
+        obj_job_dict = model_to_dict(obj_job)
+        obj_dict = model_to_dict(obj)
+        obj_dict["job"] = obj_job_dict
+        obj_dict["job"]["next_run_time"] =obj_dict["job"]["next_run_time"].strftime("%Y-%m-%d %H:%M:%S")
+        return response(result=obj_dict)
 
