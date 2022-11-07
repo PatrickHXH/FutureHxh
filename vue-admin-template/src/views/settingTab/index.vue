@@ -8,6 +8,9 @@
         <el-tab-pane label="邮件管理" name="email">
           <emailist v-if="showTab == 2" />
         </el-tab-pane>
+        <el-tab-pane label="定时任务" name="scheduler">
+          <schedulerlist v-if="showTab == 3" />
+        </el-tab-pane>
       </el-tabs>
     </div>
   </div>
@@ -16,11 +19,13 @@
 <script>
 import emailist from '@/views/settingTab/emailist.vue'
 import projectlist from '@/views/settingTab/projectlist.vue'
+import schedulerlist from '@/views/settingTab/schedulerlist.vue'
 export default {
   components: {
     // 组件
     emailist,
-    projectlist
+    projectlist,
+    schedulerlist
   },
   data() {
     return {
@@ -43,6 +48,9 @@ export default {
       }
       if (tab.name === 'email') {
         this.showTab = 2
+      }
+      if (tab.name === 'scheduler') {
+        this.showTab = 3
       }
     }
   }

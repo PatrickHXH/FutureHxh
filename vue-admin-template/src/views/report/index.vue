@@ -46,8 +46,8 @@
           <el-table-column prop="sender" label="发送" />
           <el-table-column prop="receive" label="接收" />
           <el-table-column prop="report_time" label="报告时间" />
-          <!-- <el-table-column prop="update_time" label="更新时间" />
-          <el-table-column prop="create_time" label="创建时间" /> -->
+          <el-table-column prop="update_time" label="更新时间" />
+          <!-- <el-table-column prop="create_time" label="创建时间" /> -->
           <el-table-column prop="lastest" label="最新" />
           <el-table-column prop="existfail" label="存在错误" />
           <!-- <el-table-column prop="report_dir" label="详情"></el-table-column> -->
@@ -216,10 +216,10 @@ export default {
           } else {
             lastest = '否'
           }
-          if(existfail === true){
-            existfail = "是"
-          }else{
-            existfail = "否"
+          if (existfail === true) {
+            existfail = '是'
+          } else {
+            existfail = '否'
           }
           this.tableData.push({
             project: resp.data.items[i].project.name + '_' + resp.data.items[i].project.keyword,
@@ -227,9 +227,9 @@ export default {
             sender: resp.data.items[i].sender,
             receive: resp.data.items[i].receive,
             report_time: resp.data.items[i].report_time,
-            // update_time: resp.data.items[i].update_time,
+            update_time: resp.data.items[i].update_time,
             // create_time: resp.data.items[i].create_time,
-            existfail:existfail,
+            existfail: existfail,
             lastest: lastest,
             report_dir: resp.data.items[i].report_dir
           })
@@ -246,7 +246,7 @@ export default {
         return 'warning-row'
       } else if (row.existfail === '是') {
         return 'error-row'
-      }else if(row.lastest === '是'){
+      } else if (row.lastest === '是') {
         return 'success-row'
       }
     },
