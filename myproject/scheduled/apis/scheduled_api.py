@@ -8,12 +8,13 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.cron import CronTrigger
 from django_apscheduler.jobstores import DjangoJobStore, register_events, register_job
 from scheduled.jobs.SearchReportJob import Search_Report
-from scheduled.apis.api_schema import RemoveJobIn,PauseJobIn,JobListOut,ResumeJobIn,CreateJonIn,JobSchema
+from scheduled.apis.api_schema import RemoveJobIn,PauseJobIn,JobListOut,ResumeJobIn,CreateJonIn,JobSchema,UpdateJobIn
 from django_apscheduler.models import DjangoJob, DjangoJobExecution
 from scheduled.models import DjangoJobExtend
 from myproject.pagination import CustomPagination
 from ninja.pagination import paginate,PageNumberPagination  #分页
 from django.forms.models import model_to_dict
+from django.shortcuts import get_object_or_404
 import base64
 from typing import  List,Any
 import os
@@ -37,13 +38,13 @@ def createjob(request,data:CreateJonIn):
         #描述
         describe=data.describe
         try:
-                scheduler.add_job(globals()[excutefun], CronTrigger.from_crontab(crontab))
+                obj = scheduler.add_job(globals()[excutefun], CronTrigger.from_crontab(crontab))
                 register_events(scheduler)
                 scheduler.start()
         except:
                 pass
-        obj = DjangoJob.objects.last()
-        DjangoJobExtend.objects.create(job_id=obj.id,describe=describe)
+        # obj = DjangoJob.objects.last()
+        DjangoJobExtend.objects.create(job_id=obj.id,describe=describe,trigger=trigger,excutefun=excutefun,crontab=crontab)
         return response(result=obj.id)
 
 
@@ -64,9 +65,19 @@ def pausejob(request,data:PauseJobIn):
         try:
                 scheduler.start()
                 scheduler.pause_job(data.id)
+                obj = DjangoJob.objects.get(id=data.id)
+                if obj.next_run_time is None:
+                        obj_extend = DjangoJobExtend.objects.get(job_id=data.id)
+                        obj_extend.state = 0
+                        obj_extend.save()
                 return response()
         except:
                 scheduler.pause_job(data.id)
+                obj = DjangoJob.objects.get(id=data.id)
+                if obj.next_run_time is None:
+                        obj_extend = DjangoJobExtend.objects.get(job_id=data.id)
+                        obj_extend.state = 0
+                        obj_extend.save()
                 return response()
 
 #重启定时任务
@@ -75,9 +86,19 @@ def resumejob(request,data:ResumeJobIn):
         try:
                 scheduler.start()
                 scheduler.resume_job(data.id)
+                obj = DjangoJob.objects.get(id=data.id)
+                if obj.next_run_time is not None:
+                        obj_extend = DjangoJobExtend.objects.get(job_id=data.id)
+                        obj_extend.state = 1
+                        obj_extend.save()
                 return response()
         except:
                 scheduler.resume_job(data.id)
+                obj = DjangoJob.objects.get(id=data.id)
+                if obj.next_run_time is not None:
+                        obj_extend = DjangoJobExtend.objects.get(job_id=data.id)
+                        obj_extend.state = 1
+                        obj_extend.save()
                 return response()
 
 #获取任务列表
@@ -98,3 +119,16 @@ def getjobdetail(request,id:int):
         obj_dict["job"]["next_run_time"] =obj_dict["job"]["next_run_time"].strftime("%Y-%m-%d %H:%M:%S")
         return response(result=obj_dict)
 
+
+#修改定时任务
+# @router.post("/updatejob/")
+# def updatejob(request,data:UpdateJobIn):
+#         # try:
+#         # scheduler.start()
+#         # obj = DjangoJobExtend.objects.get(id=id)
+#         # obj_job = DjangoJob.objects.get(id=obj.job_id)
+#         # scheduler.modify_job(data.id,data.next_run_time)
+#         # return response()
+#         # except:
+#         #         scheduler.update_job(data)
+#         #         return response()
