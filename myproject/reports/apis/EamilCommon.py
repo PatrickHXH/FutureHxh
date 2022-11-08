@@ -132,13 +132,14 @@ class email:
                 return reportlist
             msg = email.get_origin_text(i,email_user,password,pop3_server)
             analysis_msg = email.parse_msg(msg)
-            if "Text" not  in analysis_msg.keys() or "Subject"not  in analysis_msg.keys() or "测试报告" not in analysis_msg["Subject"] :
+            if "Text" not  in analysis_msg.keys():
                 continue
             if  source in analysis_msg["Text"] and time in analysis_msg["Date"]:
                 analysis_msg["email_code"] = i
                 list = [i,analysis_msg]
                 reportlist.append(list)
                 break
+
         return reportlist[-1][-1]
 
     #获取邮箱id数，大小
