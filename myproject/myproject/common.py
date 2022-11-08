@@ -25,6 +25,8 @@ class Error:
     EMAIL_ATT_NOT_EXISTS = {"10019": "邮箱不存在附件"}
 
     PROJECT_ID_NOT_EXISTS = {"10019": "项目不存在"}
+    PROJECT_OR_EMAIL_NOT_EXISTS = {"10020": "项目或邮箱不存在"}
+
 
 def response(success:bool = True, error = None, result=[]):
     if error is None:
