@@ -35,14 +35,18 @@ def reportlog_list(request):
         print(today)
         obj =SearchReportLog.objects.filter().all()
         for i in obj:
-                if str(i.report_time) == today:
+                if str(i.report_time) == today and i.lastest ==True:
+                        return obj
+                if str(i.report_time) == today and i.lastest == False:
                         i.lastest = True
                         i.save()
-                else:
+                        return obj
+                if str(i.report_time) != today and i.lastest == True:
                         i.lastest = False
                         i.save()
-        return obj
-
+                        return obj
+                if str(i.report_time) != today and i.lastest == False:
+                        return obj
 #下载测试报告
 # @router.post("/download/")
 # def report_download(request, data: DownloadReportIn):
