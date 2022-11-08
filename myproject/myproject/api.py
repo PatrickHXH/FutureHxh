@@ -3,6 +3,8 @@ from users.api import router as users_router
 from reports.apis.report_api import router as reports_router
 from reports.apis.email_api import router as emails_router
 from reports.apis.project_api import  router as projects_router
+from scheduled.apis.scheduled_api import router as scheduled_router
+
 from ninja.security import HttpBearer
 from myproject.common import TokenMethod
 
@@ -40,3 +42,4 @@ api.add_router("/users/", users_router)
 api.add_router("/reports/", reports_router)
 api.add_router("/emails/", emails_router)
 api.add_router("/projects/", projects_router)
+api.add_router("/scheduled/", scheduled_router)
