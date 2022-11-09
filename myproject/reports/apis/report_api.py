@@ -38,11 +38,9 @@ def reportlog_list(request):
                 if str(i.report_time) == today and i.lastest ==1:
                         continue
                 if str(i.report_time) == today and i.lastest == 0:
-                        print("2")
                         i.lastest = True
                         i.save()
-                if str(i.report_time) is not today and i.lastest == 1:
-                        print("3")
+                if str(i.report_time) !=today and i.lastest == 1:
                         i.lastest = False
                         i.save()
                 if str(i.report_time) != today and i.lastest == 0:
