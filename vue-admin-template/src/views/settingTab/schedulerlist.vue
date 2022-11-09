@@ -112,13 +112,16 @@ export default {
       if (resp.data.success === true) {
       // Message.success("获取列表成功")
         for (let i = 0; i < resp.data.items.length; i++) {
+          var time = new Date(resp.data.items[i].job.next_run_time)
+          var runtime = resp.data.items[i].job.next_run_time === null?null:time.toLocaleString()
+          console.log(time)
           this.tableData.push({
             job_id: resp.data.items[i].job.id,
             describe: resp.data.items[i].describe,
             trigger: resp.data.items[i].trigger,
             crontab: resp.data.items[i].crontab,
             excutefun: resp.data.items[i].excutefun,
-            next_run_time: resp.data.items[i].job.next_run_time,
+            next_run_time: runtime,
             state: resp.data.items[i].state
           })
         }

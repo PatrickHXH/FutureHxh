@@ -209,6 +209,7 @@ export default {
       const resp = await ReportApi.getreportlog(this.req)
       if (resp.data.success === true) {
         for (let i = 0; i < resp.data.items.length; i++) {
+          var time = new Date(resp.data.items[i].update_time)
           let lastest = resp.data.items[i].lastest
           let existfail = resp.data.items[i].existfail
           if (lastest === true) {
@@ -227,7 +228,7 @@ export default {
             sender: resp.data.items[i].sender,
             receive: resp.data.items[i].receive,
             report_time: resp.data.items[i].report_time,
-            update_time: resp.data.items[i].update_time,
+            update_time: time.toLocaleString(),
             // create_time: resp.data.items[i].create_time,
             existfail: existfail,
             lastest: lastest,
