@@ -79,8 +79,40 @@ export const constantRoutes = [
         meta: { title: '报告管理', icon: 'form' }
       }
     ]
-  }
+  },
 
+  // {
+  //   path: '/tool/',
+  //   name: 'Tool',
+  //   component: Layout,
+  //   meta: { title: '工具管理', icon: 'el-icon-s-tools' },
+  //   children: [
+  //     {
+  //       path: '/TestTool/',
+  //       component: () => import('@/views/tool/TestTool/index'), // Parent router-view
+  //       name: 'index',
+  //       children:[{
+  //         path: 'index',
+  //         meta: { title: '在线工具',icon:'el-icon-s-unfold'},
+  //       }]
+  //     }
+  //   ]
+  // },
+
+  {
+    path: '/tool/',
+    name: 'Tool',
+    component: Layout,
+    // meta: { title: '工具管理', icon: 'el-icon-s-tools' },
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/tool/index'), // Parent router-view
+        meta: { title: '工具管理', icon: 'el-icon-s-tools' },
+        name: 'index'
+      }
+    ]
+  }
   // 自带模板example注释
   // {
   //   path: '/example',

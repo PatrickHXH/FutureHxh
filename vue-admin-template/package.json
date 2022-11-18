@@ -15,13 +15,18 @@
   },
   "dependencies": {
     "axios": "0.18.1",
+    "codemirror": "^6.0.1",
     "core-js": "3.6.5",
+    "echarts": "^5.3.3",
     "element-ui": "2.13.2",
     "js-cookie": "2.2.0",
     "normalize.css": "7.0.0",
     "nprogress": "0.2.0",
     "path-to-regexp": "2.4.0",
+    "sql-formatter": "2.3.3",
     "vue": "2.6.10",
+    "vue-codemirror": "^4.0.6",
+    "vue-json-editor": "^1.4.3",
     "vue-router": "3.0.6",
     "vuex": "3.1.0"
   },

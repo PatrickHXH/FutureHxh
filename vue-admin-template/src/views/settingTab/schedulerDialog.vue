@@ -107,10 +107,6 @@ export default {
           }
         }
       })
-    },
-    // 获取项目详情
-    async initprojectdetail(id) {
-      const resp = await ProjectApi.getdetail(id)
     }
   }
 }

@@ -15,6 +15,10 @@ export function setName(usename) {
   return Cookies.set(UserKey, usename)
 }
 
+export function getName() {
+  return Cookies.get(UserKey)
+}
+
 export function removeToken() {
   return Cookies.remove(TokenKey)
 }
