@@ -1,7 +1,7 @@
 <template>
   <div class="app-container" style="height:calc(85vh)">
     <el-card style="width: 100%;height: 100%;padding: 0px;">
-      <p class="fontstyle" href="../css/common.css">SQL格式转换：</p>
+      <p class="fontstyle" href="../css/common.css">SQL格式转换</p>
       <div class="codebefore">
         <codemirror
           ref="myCm"

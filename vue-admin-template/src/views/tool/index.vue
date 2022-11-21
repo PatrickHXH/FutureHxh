@@ -20,13 +20,13 @@
 
         <el-submenu index="1-4">
           <template slot="title">计算器</template>
-          <el-menu-item index="1-4-1">日期计算器（开发中）</el-menu-item>
+          <el-menu-item index="1-4-1">日期计算器</el-menu-item>
           <el-menu-item index="1-4-2">转换时间戳</el-menu-item>
         </el-submenu>
       </el-submenu>
       <el-submenu index="2">
         <template slot="title">文档教程</template>
-        <el-menu-item index="2-1">开发中</el-menu-item>
+        <el-menu-item index="2-1">速查表（开发中）</el-menu-item>
 
         <!-- <el-submenu index="2-4">
           <template slot="title">选项4</template>
@@ -40,6 +40,7 @@
     <el-main style="width: 100%; height: 100%">
       <tooljsonpasrsing v-if="show == '1-1'" :key="1-1" />
       <toolsqlformat v-if="show == '1-2'" :key="1-2" />
+      <toolTimeCalculationVue v-if="show == '1-4-1'" />
       <toolstamp v-if="show == '1-4-2'" />
     </el-main>
 
@@ -50,11 +51,13 @@
 import toolstamp from '@/views/tool/TestTool/tool_timestamp.vue'
 import tooljsonpasrsing from '@/views/tool/TestTool/tool_JsonParsing.vue'
 import toolsqlformat from '@/views/tool/TestTool/tool_SqlFormat.vue'
+import toolTimeCalculationVue from './TestTool/tool_TimeCalculation.vue'
 export default {
   components: {
     toolstamp,
     tooljsonpasrsing,
-    toolsqlformat
+    toolsqlformat,
+    toolTimeCalculationVue
   },
   data() {
     return {
