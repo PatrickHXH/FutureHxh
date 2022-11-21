@@ -26,7 +26,7 @@ class Error:
 
     PROJECT_ID_NOT_EXISTS = {"10019": "项目不存在"}
     PROJECT_OR_EMAIL_NOT_EXISTS = {"10020": "项目或邮箱不存在"}
-
+    REPORT_LOG_NOT_EXISTS={"10021": "不存在查询记录"}
 
 def response(success:bool = True, error = None, result=[]):
     if error is None:

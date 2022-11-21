@@ -8,7 +8,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.cron import CronTrigger
 from myproject.apscheduler_start import scheduler
 from django_apscheduler.jobstores import DjangoJobStore, register_events, register_job
-from scheduled.jobs.SearchReportJob import Search_Report
+from scheduled.jobs.SearchReportJob import Search_Report,Search_Report_lastest
 from scheduled.apis.api_schema import RemoveJobIn,PauseJobIn,JobListOut,ResumeJobIn,CreateJonIn,JobSchema,UpdateJobIn
 from django_apscheduler.models import DjangoJob, DjangoJobExecution
 from scheduled.models import DjangoJobExtend
