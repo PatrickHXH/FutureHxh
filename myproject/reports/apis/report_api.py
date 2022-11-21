@@ -33,7 +33,7 @@ def search_project_report(request,data:SearchReportIn):
 def reportlog_list(request):
         today = datetime.datetime.now().strftime("%Y-%m-%d")
         print(today)
-        # obj =SearchReportLog.objects.filter().all()
+        obj =SearchReportLog.objects.filter().all()
         # for i in obj:
         #         if str(i.report_time) == today and i.lastest ==1:
         #                 continue
