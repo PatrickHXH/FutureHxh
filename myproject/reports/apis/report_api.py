@@ -33,18 +33,18 @@ def search_project_report(request,data:SearchReportIn):
 def reportlog_list(request):
         today = datetime.datetime.now().strftime("%Y-%m-%d")
         print(today)
-        obj =SearchReportLog.objects.filter().all()
-        for i in obj:
-                if str(i.report_time) == today and i.lastest ==1:
-                        continue
-                if str(i.report_time) == today and i.lastest == 0:
-                        i.lastest = True
-                        i.save()
-                if str(i.report_time) !=today and i.lastest == 1:
-                        i.lastest = False
-                        i.save()
-                if str(i.report_time) != today and i.lastest == 0:
-                        continue
+        # obj =SearchReportLog.objects.filter().all()
+        # for i in obj:
+        #         if str(i.report_time) == today and i.lastest ==1:
+        #                 continue
+        #         if str(i.report_time) == today and i.lastest == 0:
+        #                 i.lastest = True
+        #                 i.save()
+        #         if str(i.report_time) !=today and i.lastest == 1:
+        #                 i.lastest = False
+        #                 i.save()
+        #         if str(i.report_time) != today and i.lastest == 0:
+        #                 continue
         return obj
 #下载测试报告
 # @router.post("/download/")
