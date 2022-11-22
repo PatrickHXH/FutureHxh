@@ -20,6 +20,8 @@ RUN chown -R www-data:www-data /usr/share/nginx/html/media \
 # 添加配置文件
 ADD ./nginx.conf /etc/nginx/conf.d/
  
- 
+#复制vue
+COPY /TestProject/vue-admin-template/dist  /usr/share/nginx/html/
+
 # 关闭守护模式
 CMD ["nginx", "-g", "daemon off;"]

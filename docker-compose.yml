@@ -20,12 +20,12 @@ networks: # 自定义网络(默认桥接), 不使用links通信
 services:
   redis:
     image: redis:latest
-    command: redis-server /etc/redis/redis.conf # 容器启动后启动redis服务器
+    command: redis-server /usr/local/redis # 容器启动后启动redis服务器
     networks:
       - redis_network
     volumes:
       - redis_vol:/data # 通过挂载给redis数据备份
-      - ./compose/redis/redis.conf:/etc/redis/redis.conf # 挂载redis配置文件
+      - ./compose/redis/redis.conf:/usr/local/redis # 挂载redis配置文件
     ports:
       - "6379:6379"
     restart: always # always表容器运行发生错误时一直重启
@@ -51,10 +51,10 @@ services:
     expose:
       - "8000"
     volumes:
-      - ./myproject:/var/www/html/myproject # 挂载项目代码
-      - static_vol:/var/www/html/myproject/static # 以数据卷挂载容器内static文件
-      - media_vol:/var/www/html/myproject/media # 以数据卷挂载容器内用户上传媒体文件
-      - ./compose/uwsgi:/tmp # 挂载uwsgi日志
+      - ./myproject:/TestProject/myproject # 挂载项目代码
+      - static_vol:/TestProject/myproject/backendstatic # 以数据卷挂载容器内static文件
+      #- media_vol:/var/www/html/myproject/media # 以数据卷挂载容器内用户上传媒体文件
+      - ./compose/uwsgi:/TestProject/myproject/logs # 挂载uwsgi日志
     networks:
       - nginx_network
       #- db_network  
@@ -76,10 +76,10 @@ services:
       - "80"
     volumes:
       - ./compose/nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf # 挂载nginx配置文件
-      - ./compose/nginx/ssl:/usr/share/nginx/ssl # 挂载ssl证书目录
-      - ./compose/nginx/log:/var/log/nginx # 挂载日志
-      - static_vol:/usr/share/nginx/html/static # 挂载静态文件
-      - media_vol:/usr/share/nginx/html/media # 挂载用户上传媒体文件
+      #- ./compose/nginx/ssl:/usr/local/nginx/ssl # 挂载ssl证书目录
+      - ./compose/nginx/log:/usr/local/nginx/logs # 挂载日志
+      - static_vol:/usr/local/nginx/html/dict # 挂载静态文件
+      #- media_vol:/usr/local/nginx/html/media # 挂载用户上传媒体文件
     networks:
       - nginx_network
     depends_on:
