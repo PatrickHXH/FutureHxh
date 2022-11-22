@@ -135,7 +135,7 @@ REPORT_DIR = os.path.join(BASE_DIR, "backendstatic", "reports")
 # 设置静态目录
 STATIC_URL = '/backendstatic/'
 
-STATICFILES_DIRS = [
+STATIC_ROOT = [
     os.path.join(BASE_DIR, "backendstatic"),
 ]
 
