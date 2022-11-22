@@ -135,9 +135,8 @@ REPORT_DIR = os.path.join(BASE_DIR, "backendstatic", "reports")
 # 设置静态目录
 STATIC_URL = '/backendstatic/'
 
-STATIC_ROOT = [
-    os.path.join(BASE_DIR, "backendstatic"),
-]
+STATIC_ROOT = os.path.join(BASE_DIR, "backendstatic"),
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
