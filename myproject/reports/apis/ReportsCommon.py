@@ -45,6 +45,7 @@ def SearchReport(project_id:int,email_id:int):
             project_id=project_id,
             report_time=reportime,
             existfail=ret,
+            lastest=1,
             update_time=update_time,
             create_time=update_time
         )
@@ -62,6 +63,7 @@ def SearchReport(project_id:int,email_id:int):
             existfail=ret,
             project_id=project_id,
             report_dir=report_dir,
+            lastest=1,
             update_time=update_time
         )
     return  response()
