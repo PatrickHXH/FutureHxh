@@ -26,22 +26,15 @@
       </el-submenu>
       <el-submenu index="2">
         <template slot="title">文档教程</template>
-        <el-menu-item index="2-1">速查表（开发中）</el-menu-item>
-
-        <!-- <el-submenu index="2-4">
-          <template slot="title">选项4</template>
-          <el-menu-item index="2-4-1">选项1</el-menu-item>
-          <el-menu-item index="2-4-2">选项2</el-menu-item>
-          <el-menu-item index="2-4-3">选项3</el-menu-item>
-        </el-submenu> -->
+        <el-menu-item index="2-1">速查表</el-menu-item>
       </el-submenu>
-      <!-- <el-menu-item index="3">消息中心</el-menu-item> -->
     </el-menu>
     <el-main style="width: 100%; height: 100%">
       <tooljsonpasrsing v-if="show == '1-1'" :key="1-1" />
       <toolsqlformat v-if="show == '1-2'" :key="1-2" />
       <toolTimeCalculationVue v-if="show == '1-4-1'" />
       <toolstamp v-if="show == '1-4-2'" />
+      <toolQuickCheck v-if="show =='2-1'" />
     </el-main>
 
   </div>
@@ -52,22 +45,24 @@ import toolstamp from '@/views/tool/TestTool/tool_timestamp.vue'
 import tooljsonpasrsing from '@/views/tool/TestTool/tool_JsonParsing.vue'
 import toolsqlformat from '@/views/tool/TestTool/tool_SqlFormat.vue'
 import toolTimeCalculationVue from './TestTool/tool_TimeCalculation.vue'
+import toolQuickCheck from '@/views/tool/TestTool/tool_QuickCheck.vue'
 export default {
   components: {
     toolstamp,
     tooljsonpasrsing,
     toolsqlformat,
-    toolTimeCalculationVue
+    toolTimeCalculationVue,
+    toolQuickCheck
   },
   data() {
     return {
       show: '',
-      activeIndex2: '1-1',
+      activeIndex2: '2-1'
       // isCollapse: true
     }
   },
   mounted() {
-    this.show = '1-1'
+    this.show = '2-1'
   },
   methods: {
     handleSelect(key, keyPath) {

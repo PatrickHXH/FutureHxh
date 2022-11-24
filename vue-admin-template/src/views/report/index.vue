@@ -25,7 +25,7 @@
         </el-form-item>
         <el-form-item>
           <keep-alive>
-            <el-button :loading="loading" type="primary" @click="Search('ruleForm')">查询  </el-button>
+            <el-button :loading="loading" type="primary" @click="Search('ruleForm')">在线查询</el-button>
           </keep-alive>
           <el-button @click="resetForm('ruleForm')">重置</el-button>
         </el-form-item>
