@@ -93,4 +93,10 @@ def getjobdetail(request,id:int):
         obj_dict["job"]["next_run_time"] =obj_dict["job"]["next_run_time"].strftime("%Y-%m-%d %H:%M:%S")
         return response(result=obj_dict)
 
-
+#手动执行定时器
+@router.post("/excutejob/{id}")
+def excutejob(request,id:int):
+        obj = DjangoJobExtend.objects.get(id=id)
+        fun = obj.excutefun
+        globals()[fun]()
+        return response()
