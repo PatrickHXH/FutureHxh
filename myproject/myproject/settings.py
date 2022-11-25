@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-g52%i^!&gfagn1s+1w_!^3%aq5142ar_s2*v-p%bn%_b0gi-&p'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
@@ -88,9 +88,17 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # }
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'HOST': 'localhost',  # 数据库主机
+        'PORT': 3306,  # 数据库端口
+        'USER': 'root',  # 数据库用户名
+        'PASSWORD': 'patrick950207',  # 数据库用户密码
+        'NAME': 'django_demo'  # 数据库名字
     }
 }
 
@@ -134,7 +142,9 @@ REPORT_DIR = os.path.join(BASE_DIR, "backendstatic", "reports")
 
 # 设置静态目录
 STATIC_URL = '/backendstatic/'
-STATIC_ROOT = os.path.join(BASE_DIR, "backendstatic")
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "backendstatic"),
+]
 
 
 # Default primary key field type
