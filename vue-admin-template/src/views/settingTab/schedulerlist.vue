@@ -66,8 +66,8 @@
               size="mini"
               type="primary"
               :loading="loadingid===scope.row.id?true:false"
-              @click="ExcuteJob(scope.row)"
               style="width:73px;height:28px"
+              @click="ExcuteJob(scope.row)"
             >执行</el-button>
           </template>
         </el-table-column>
@@ -99,7 +99,7 @@ export default {
       },
       total: 0,
       switchValue: '',
-      loadingid: ""
+      loadingid: ''
     }
   },
   mounted() {
@@ -183,10 +183,10 @@ export default {
       const resp = await SchedulerApi.excutejob(row.id)
       if (resp.data.success === true) {
         Message.success('执行成功')
-        this.loadingid = ""
+        this.loadingid = ''
       } else {
         Message.error('执行失败')
-        this.loadingid = ""
+        this.loadingid = ''
       }
     }
   }

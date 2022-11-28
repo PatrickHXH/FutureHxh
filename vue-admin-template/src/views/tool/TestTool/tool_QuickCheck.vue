@@ -21,31 +21,28 @@
         <el-col :span="4">
           <el-card :body-style="{ padding: '0px' }" class="listcard" shadow="hover">
             <div style="padding: 10px;">
-              <a href="" target="__blank">
+              <a href="https://quickref.cn/docs/cron.html" target="__blank">
                 <div class="classify-descItem-top">
-                  <img src="../icon/ic-linux.png" class="image">
-                  <span class="top-title">Linux</span>
+                  <img src="../icon/CronTab.svg" class="image">
+                  <span class="top-title">Cron</span>
                 </div>
               </a>
               <div class="classify-descItemLine" />
-              <span class="item-desc">Linux，全称GNU/Linux，是一套免费使用和自由传播的类UNIX操作系统，其内核由林纳斯·本纳第克特·托瓦兹于1991年第一次释出，它主要受到Minix和Unix思想的启发，是一个基于POSIX和Unix的多用户、多任务、支持多线程和多CPU的操作系统。它能运行主要的Unix工具软件、应用程序和网络协议。它支持32位和64位硬件。Linux继承了Unix以网络为核心的设计思想，是一个性能稳定的多用户网络操作系统。Linux有上百种不同的发行版，如基于社区开发的debian、archlinux，和基于商业开发的Red
-                Hat Enterprise Linux、SUSE、oracle linux等。</span>
+              <span class="item-desc">Cron 最适合安排重复性任务。 可以使用关联的 at 实用程序来完成一次性任务的调度</span>
             </div>
           </el-card>
         </el-col>
         <el-col :span="4">
           <el-card :body-style="{ padding: '0px' }" class="listcard" shadow="hover">
             <div style="padding: 10px;">
-              <a href="" target="__blank">
+              <a href="https://quickref.cn/docs/javascript.html" target="__blank">
                 <div class="classify-descItem-top">
-                  <img src="../icon/ic-adb.png" class="image" style="width:20px">
-                  <span class="top-title">ADB</span>
+                  <img src="../icon/JavaScript.svg" class="image" style="width:30px">
+                  <span class="top-title">JavaScript</span>
                 </div>
               </a>
               <div class="classify-descItemLine" />
-              <span class="item-desc">ADB，即 Android Debug Bridge，它是 Android
-                开发/测试人员不可替代的强大工具，也是 Android
-                设备玩家的好玩具。</span>
+              <span class="item-desc">包含最重要概念、函数、方法等的 JavaScript 备忘单。 初学者的完整快速参考。</span>
             </div>
           </el-card>
         </el-col>
@@ -180,12 +177,12 @@
 </template>
 
 <script>
-// import { Message } from 'element-ui'
 
 export default {
+
   data() {
     return {
-      currentDate: new Date()
+
     }
   },
   created() {
