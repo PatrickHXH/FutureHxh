@@ -41,6 +41,12 @@ class SchedulerApi {
       method: 'get'
     })
   }
+  excutejob(id) {
+    return request({
+      url: '/api/scheduled/excutejob/' + id,
+      method: 'post'
+    })
+  }
 }
 
 export default new SchedulerApi()

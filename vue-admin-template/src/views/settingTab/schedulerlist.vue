@@ -12,6 +12,11 @@
         style="width: 100%"
       >
         <el-table-column
+          prop="id"
+          label="ID"
+          width="50"
+        />
+        <el-table-column
           prop="job_id"
           label="任务ID"
           width="300"
@@ -57,6 +62,13 @@
               type="danger"
               @click="DeleteJob(scope.row)"
             >删除</el-button>
+            <el-button
+              size="mini"
+              type="primary"
+              :loading="loadingid===scope.row.id?true:false"
+              @click="ExcuteJob(scope.row)"
+              style="width:73px;height:28px"
+            >执行</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -86,7 +98,8 @@ export default {
         size: 6
       },
       total: 0,
-      switchValue: ''
+      switchValue: '',
+      loadingid: ""
     }
   },
   mounted() {
@@ -116,6 +129,7 @@ export default {
           var runtime = resp.data.items[i].job.next_run_time === null ? null : time.toLocaleString()
           console.log(time)
           this.tableData.push({
+            id: resp.data.items[i].id,
             job_id: resp.data.items[i].job.id,
             describe: resp.data.items[i].describe,
             trigger: resp.data.items[i].trigger,
@@ -161,6 +175,18 @@ export default {
         this.Schedulerlist()
       } else {
         Message.error('删除失败')
+      }
+    },
+    // 执行任务
+    async ExcuteJob(row) {
+      this.loadingid = row.id
+      const resp = await SchedulerApi.excutejob(row.id)
+      if (resp.data.success === true) {
+        Message.success('执行成功')
+        this.loadingid = ""
+      } else {
+        Message.error('执行失败')
+        this.loadingid = ""
       }
     }
   }
