@@ -1,10 +1,10 @@
 <template>
   <div class="main-card">
-    <!-- 创建邮箱按钮 -->
+    <!-- 创建角色按钮 -->
     <div>
-      <el-button type="primary" style="margin:10px auto" @click="create">添加邮箱</el-button>
+      <el-button type="primary" style="margin:10px auto" @click="create">添加角色</el-button>
     </div>
-    <!-- 邮箱列表 -->
+    <!-- 角色列表 -->
     <div>
       <el-table
         :data="tableData"
@@ -12,40 +12,29 @@
         style="width: 100%"
       >
         <el-table-column
-          label="邮箱"
+          label="ID"
           width="180"
         >
           <template slot-scope="scope">
-            <span style="margin-left: 10px">{{ scope.row.email }}</span>
+            <span style="margin-left: 10px">{{ scope.row.id }}</span>
           </template>
         </el-table-column>
         <el-table-column
-          label="授权码"
+          label="角色"
           width="180"
         >
           <template slot-scope="scope">
-            <span style="margin-left: 10px">{{ scope.row.code }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column
-          label="服务器地址"
-          width="180"
-        >
-          <template slot-scope="scope">
-            <span style="margin-left: 10px">{{ scope.row.server }}</span>
+            <span style="margin-left: 10px">{{ scope.row.name }}</span>
           </template>
         </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
-            <el-button
-              size="mini"
-              @click="Edit(scope.$index, scope.row)"
-            >编辑</el-button>
-            <el-button
-              size="mini"
-              type="danger"
-              @click="Delete(scope.$index, scope.row)"
-            >删除</el-button>
+            <el-button-group>
+              <el-button type="warning" @click="enterRolePermission(scope.$index, scope.row)" icon="el-icon-s-promotion">权限</el-button>
+              <el-button type="success" @click="enterRoleUser(scope.$index, scope.row)" icon="el-icon-user">用户</el-button>
+              <el-button type="primary"  @click="Edit(scope.$index, scope.row)" icon="el-icon-edit"></el-button>
+              <el-button type="danger" @click="Delete(scope.$index, scope.row)" icon="el-icon-delete"></el-button>
+            </el-button-group>
           </template>
         </el-table-column>
       </el-table>
@@ -57,30 +46,34 @@
         :page-size="req.size"
         :total="total"
         style="margin: 10px"
-        cy-data="EmailPagination"
+        cy-data="ProjectPagination"
         @current-change="handleCurrentChange"
       />
     </div>
     <!-- 调用子组件 -->
-    <emailDialog v-if="show" :tid="titleid" :eid="eid" @cancel="closeDialog" />
+    <roleDialog v-if="show" :tid="titleid" :rid="rid" @cancel="closeDialog" />
+    <roleUserDialog v-if="showRoleDialog" :tid="titleid" :rid="rid" @cancel="closeDialog"/>
   </div>
 </template>
 
 <script>
 
-import emailDialog from '@/views/settingTab/emailDialog.vue'
-import EmailApi from '@/api/email'
+import roleDialog from '@/views/setting/permission/roleDialog.vue'
+import roleUserDialog from '@/views/setting/permission/roleUserDialog.vue'
+import RoleApi from '@/api/role'
 import { Message } from 'element-ui'
 
 export default {
   components: {
-    emailDialog
+    roleDialog,
+    roleUserDialog
   },
   data() {
     return {
       show: false,
+      showRoleDialog:false,
       titleid: 0,
-      eid: 0,
+      rid: 0,
       tableData: [],
       req: {
         page: 1,
@@ -90,7 +83,7 @@ export default {
     }
   },
   mounted() {
-    this.emailist()
+    this.rolelist()
   },
   methods: {
     showDialog() {
@@ -98,49 +91,59 @@ export default {
     },
     closeDialog() {
       this.show = false
-      this.emailist()
+      this.showRoleDialog = false
+      this.rolelist()
     },
-    // 获取邮箱列表
-    async emailist() {
-      const resp = await EmailApi.getlist(this.req)
+    //获取角色列表
+    async rolelist() {
+      const resp = await RoleApi.getlist(this.req)
       console.log('列表', resp)
       if (resp.data.success === true) {
         // Message.success("获取列表成功")
         this.tableData = resp.data.items
         this.total = resp.data.total
       } else {
-        Message.error('获取列表失败')
+        Message.error(resp.data.error.msg)
       }
     },
-    // 跳到第几页
+    //跳到第几页
     handleCurrentChange(val) {
     //   console.log(`当前页: ${val}`);
       this.req.page = val
-      this.emailist()
+      this.rolelist()
     },
-    // 点击编辑邮箱
+    //点击编辑角色
     Edit(index, row) {
-      console.log(index, row)
       this.showDialog()
       this.titleid = 1
-      this.eid = row.id
+      this.rid = row.id
     },
-    // 点击创建邮箱
+    //点击创建角色
     create() {
       this.showDialog()
       this.titleid = 0
     },
-    // 删除邮箱
+    //删除角色
     async Delete(index, row) {
       console.log(index, row)
-      const resp = await EmailApi.delete(row.id)
+      const resp = await RoleApi.delete({id:row.id})
       if (resp.data.success === true) {
         Message.success('删除成功')
-        this.emailist()
+        this.rolelist()
       } else {
-        Message.error('删除失败')
+        Message.error(resp.data.error.msg)
       }
-    }
+    },
+    //跳转页面
+    enterRolePermission(index, row){
+      this.$router.push({path:'/permisssion/role', query: {id:row.id}})
+    },
+    //打开用户授权
+    enterRoleUser(index, row){
+      this.showRoleDialog = true
+      this.titleid = 2
+      this.rid = row.id
+    } 
   }
 }
 </script>

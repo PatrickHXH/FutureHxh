@@ -81,7 +81,7 @@ export default {
                 Message.success('创建成功')
                 this.closeDialog()
               } else {
-                Message.error('创建失败')
+                Message.error(resp.data.error.msg)
               }
             })
           } else {
@@ -90,7 +90,7 @@ export default {
                 Message.success('编辑成功')
                 this.closeDialog()
               } else {
-                Message.error('编辑失败')
+                Message.error(resp.data.error.msg)
               }
             })
           }
@@ -103,7 +103,7 @@ export default {
       if (resp.data.success === true) {
         this.form = resp.data.result
       } else {
-        Message.error('获取邮件详情失败')
+        Message.error(resp.data.error.msg)
       }
     }
   }

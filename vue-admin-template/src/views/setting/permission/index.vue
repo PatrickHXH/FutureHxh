@@ -2,35 +2,34 @@
   <div class="app-container" style="height:calc(95vh)">
     <div class="workbench" style="height: 100%">
       <el-tabs v-model="tabName" type="border-card" style="height: 100%" @tab-click="tabClick">
-        <el-tab-pane label="项目管理" name="project">
-          <projectlist v-if="showTab == 1" />
+        <el-tab-pane label="角色管理" name="role">
+          <rolelist v-if="showTab == 1" />
         </el-tab-pane>
-        <el-tab-pane label="邮件管理" name="email">
-          <emailist v-if="showTab == 2" />
+        <el-tab-pane label="权限设置" name="permisssion">
+          <permissionlist v-if="showTab == 2" />
         </el-tab-pane>
-        <el-tab-pane label="定时任务" name="scheduler">
+        <!-- <el-tab-pane label="定时任务" name="scheduler">
           <schedulerlist v-if="showTab == 3" />
-        </el-tab-pane>
+        </el-tab-pane> -->
       </el-tabs>
     </div>
   </div>
 </template>
 
 <script>
-import emailist from '@/views/settingTab/emailist.vue'
-import projectlist from '@/views/settingTab/projectlist.vue'
-import schedulerlist from '@/views/settingTab/schedulerlist.vue'
+import rolelist from '@/views/setting/permission/rolelist.vue'
+import permissionlist from '@/views/setting/permission/permissionlist.vue'
+
 export default {
   components: {
     // 组件
-    emailist,
-    projectlist,
-    schedulerlist
+    rolelist,
+    permissionlist,
   },
   data() {
     return {
     // loading: true,
-      tabName: 'project',
+      tabName: 'role',
       showTab: 1
     }
   },
@@ -43,14 +42,14 @@ export default {
     // 切换tab标签页
     tabClick(tab) {
       console.log(tab.name)
-      if (tab.name === 'project') {
+      if (tab.name === 'role') {
         this.showTab = 1
       }
-      if (tab.name === 'email') {
+      if (tab.name === 'permisssion') {
         this.showTab = 2
       }
       if (tab.name === 'scheduler') {
-        this.showTab = 3
+        this.showTab = 1-1
       }
     }
   }

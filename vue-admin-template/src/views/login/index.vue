@@ -119,7 +119,7 @@ export default {
               this.loading = false
               Message.success('登陆成功')
             } else {
-              Message.error('登陆失败')
+              Message.error(resp.data.error.msg)
             }
           })
           // .catch(() => {

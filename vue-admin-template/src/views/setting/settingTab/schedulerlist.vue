@@ -80,7 +80,7 @@
 
 <script>
 
-import schedulerDialog from '@/views/settingTab/schedulerDialog.vue'
+import schedulerDialog from '@/views/setting/settingTab/schedulerDialog.vue'
 import SchedulerApi from '@/api/scheduler'
 import { Message } from 'element-ui'
 
@@ -153,7 +153,7 @@ export default {
           this.tableData = []
           this.Schedulerlist()
         } else {
-          Message.error('暂停失败')
+          Message.error(resp.data.error.msg)
         }
       } else {
         const resp = await SchedulerApi.resumejob({ id: row.job_id })
@@ -162,7 +162,7 @@ export default {
           this.tableData = []
           this.Schedulerlist()
         } else {
-          Message.error('重启失败')
+          Message.error(resp.data.error.msg)
         }
       }
     },
@@ -174,7 +174,7 @@ export default {
         this.tableData = []
         this.Schedulerlist()
       } else {
-        Message.error('删除失败')
+        Message.error(resp.data.error.msg)
       }
     },
     // 执行任务
@@ -185,7 +185,7 @@ export default {
         Message.success('执行成功')
         this.loadingid = ''
       } else {
-        Message.error('执行失败')
+        Message.error(resp.data.error.msg)
         this.loadingid = ''
       }
     }

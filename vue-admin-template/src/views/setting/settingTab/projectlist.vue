@@ -60,7 +60,7 @@
 
 <script>
 
-import projectDialog from '@/views/settingTab/projectDialog.vue'
+import projectDialog from '@/views/setting/settingTab/projectDialog.vue'
 import ProjectApi from '@/api/project'
 import { Message } from 'element-ui'
 
@@ -101,7 +101,7 @@ export default {
         this.tableData = resp.data.items
         this.total = resp.data.total
       } else {
-        Message.error('获取列表失败')
+        Message.error(resp.data.error.msg)
       }
     },
     // 跳到第几页
@@ -130,7 +130,7 @@ export default {
         Message.success('删除成功')
         this.projectlist()
       } else {
-        Message.error('删除失败')
+        Message.error(resp.data.error.msg)
       }
     }
   }

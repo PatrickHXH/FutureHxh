@@ -101,7 +101,7 @@ export default {
                 Message.success('创建成功')
                 this.closeDialog()
               } else {
-                Message.error('创建失败')
+                Message.error(resp.data.error.msg)
               }
             })
           }

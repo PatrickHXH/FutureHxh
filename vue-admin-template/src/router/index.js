@@ -43,6 +43,7 @@ export const constantRoutes = [
     hidden: true
   },
 
+
   {
     path: '/',
     component: Layout,
@@ -56,14 +57,27 @@ export const constantRoutes = [
   },
 
   {
-    path: '/settingTab',
+    path: '/setting',
     component: Layout,
+    meta: { title: '平台设置', icon: 'el-icon-s-unfold' },
     children: [
       {
-        path: 'index',
+        path: '/settingTab/index',
         name: 'settingTab',
-        component: () => import('@/views/settingTab/index'),
+        component: () => import('@/views/setting/settingTab/index'),
         meta: { title: '配置管理', icon: 'el-icon-s-help' }
+      },
+      {
+        path: '/permisssion/index',
+        name: 'permissinon',
+        component: () => import('@/views/setting/permission/index'),
+        meta: { title: '权限管理', icon: 'el-icon-user-solid' },
+      },
+      {
+        path:'/permisssion/role',
+        name:'rolePermission',
+        component:()=>import('@/views/setting/permission/rolepermission'),
+        hidden: true
       }
     ]
   },
