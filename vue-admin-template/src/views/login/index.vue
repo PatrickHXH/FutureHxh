@@ -41,8 +41,9 @@
         </span>
       </el-form-item>
 
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">登陆</el-button>
-
+      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:10px;" @click.native.prevent="handleLogin">登陆</el-button>
+      <!-- 游客模式 -->
+      <el-button :loading="loading" type="success" style="width:100%;margin-bottom:10px;color:antiquewhite;" @click="vistorclick()">游客模式</el-button>
       <!-- <div class="tips">
         <span style="margin-right:20px;">username: admin</span>
         <span> password: any</span>
@@ -56,7 +57,7 @@
 import { validUsername } from '@/utils/validate'
 import { Message } from 'element-ui'
 // import router from '@/router'
-// import LoginApi from '../../api/user';
+import { login } from '@/api/user'
 
 export default {
   name: 'Login',
@@ -122,15 +123,16 @@ export default {
               Message.error(resp.data.error.msg)
             }
           })
-          // .catch(() => {
-          // console.log("你好")
-          // this.loading = false
-          // })
         } else {
           console.log('error submit!!')
           return false
         }
       })
+    },
+    async vistorclick(){
+      this.loginForm.username ="vistor"
+      this.loginForm.password = "vistor"
+      this.handleLogin()
     }
   }
 }
