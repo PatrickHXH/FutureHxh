@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'scheduled',
     "django_apscheduler",
+    "rolepermission"
 ]
 
 MIDDLEWARE = [

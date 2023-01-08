@@ -9,5 +9,8 @@ class DjangoJobExtend(models.Model):
     crontab = models.CharField("触发时间", max_length=50, null=False, default="")
     state =models.BooleanField("是否开启",default=1)
 
+    class Meta:
+        default_permissions = ()
+
     def __str__(self):
         return self.describe

@@ -17,3 +17,8 @@ class TokenIn(Schema):
 
 class TokenOut(Schema):
     username:str
+
+class UserOut(Schema):
+    id:int
+    username:str
+    is_active:int

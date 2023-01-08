@@ -2,7 +2,8 @@ from ninja import Router
 from myproject.common import response, Error, TokenMethod
 from django.contrib.auth.models import User
 from django.contrib import auth
-from users.api_schema import RegisterIn, LoginIn,TokenIn,TokenOut
+from ninja.renderers import BaseRenderer
+from users.api_schema import RegisterIn, LoginIn,TokenIn,TokenOut,UserOut
 import pickle
 import base64
 import json
@@ -10,11 +11,14 @@ import time
 from django.core import signing
 import hashlib
 from django.core.cache import cache
+from typing import  List,Any
+from myproject.pagination import CustomPagination #自定义分页
+from ninja.pagination import paginate,PageNumberPagination  #分页
 
 router = Router(tags=["users"])
 
 # 注册
-@router.post("/register",auth=None)
+@router.post("/register/",auth=None)
 def user_register(request,payload:RegisterIn):
     if payload.password != payload.confirm_password:
         return response(error=Error.PAWD_ERROR)
@@ -32,7 +36,7 @@ def user_register(request,payload:RegisterIn):
     return response(result=user_info)
 
 #登陆
-@router.post("/login",auth=None)
+@router.post("/login/",auth=None)
 def testtoken(request,data:LoginIn):
     """
     假设，必须要登录之后才能访问
@@ -63,6 +67,7 @@ def get_info(request,data:TokenIn):
     lasttoken = TokenMethod.check_token(token)
     username = TokenMethod.get_username(token)
     info = {
+        "roles":['admin'],
         "username":username,
         "checkout":lasttoken
     }
@@ -76,3 +81,4 @@ def delete_token(request,data:TokenOut):
     '''
     TokenMethod.delete_token(data.username)
     return  response()
+

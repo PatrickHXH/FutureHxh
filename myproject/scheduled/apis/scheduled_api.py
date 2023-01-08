@@ -48,7 +48,6 @@ def removejob(request,data:RemoveJobIn):
         scheduler.remove_job(data.id)
         return response()
 
-
 #暂停定时任务
 @router.post("/pausejob/")
 def pausejob(request,data:PauseJobIn):

@@ -6,7 +6,7 @@ from email.header import decode_header
 # 解析地址
 from email.utils import parseaddr
 import os
-
+import time
 
 class email:
     #连接邮箱
@@ -53,6 +53,14 @@ class email:
     #解析邮件
     def parse_msg(msg):
         parse_msg_dict = {}
+        #解析时间
+        Received = msg.get("Received",'')
+        date = Received.split(',')[-1]
+        a = time.strptime(date, ' %d %b %Y %H:%M:%S %z')
+        date = str(a.tm_year)+"-"+str(a.tm_mon)+"-"+str(a.tm_mday)
+        strTime = datetime.datetime.strptime(date,"%Y-%m-%d")
+        strTime = str(strTime).split(" ")[0]
+        parse_msg_dict["Date"] = strTime
         #解析邮件头
         for header in ['From','To','Subject']:  # 遍历获取发件人，收件人，主题的相关信息
             value = msg.get(header,'')  #获取遍历的相应内容
@@ -70,7 +78,7 @@ class email:
                     name = email.decode_str(hdr)  #解码字符串
                     value = '%s <%s>' % (name, addr)
                     parse_msg_dict["To"] = value
-            # print('%s: %s'%(header,value))
+            print('%s: %s'%(header,value))
         # 解析邮件正文
         if (msg.is_multipart()): # 如果消息由多个部分组成，则返回True
             parts = msg.get_payload() #返回一个包含邮件所有子对象的列表
@@ -106,21 +114,6 @@ class email:
                 att_file.close()
                 return  (f"附件 {file_name} 下载完成")
 
-    # def save_att_file(msg, save_path):
-    #     """附件下载函数"""
-    #     for part in msg.walk():
-    #         file_name = part.get_filename()
-    #         # contentType = part.get_content_type()
-    #         attachment_files = []
-    #         if file_name:
-    #             file_name = email.decode_str(file_name)
-    #             data = part.get_payload(decode=True)
-    #             # print("emailcontent:\r\n"+data.decode('unicode_escape'))
-    #             att_file = open(os.path.join(save_path, file_name), 'wb')
-    #             attachment_files.append(file_name)
-    #             att_file.write(data)
-    #             att_file.close()
-    #             print(f"附件 {file_name} 下载完成")
 
     #查询最新邮箱报告
     def get_reportlist(source,time,email_user,password,pop3_server):
@@ -129,23 +122,27 @@ class email:
         server = email.email_login(email_user,password,pop3_server)
         email_num,email_size =server.stat()
         reportlist = []
-        for i in range(email_num,0,-1):
+        j = 0
+        for i in range(email_num,69,-1):
+            j = j + 1
             list = []
+            if j==101:
+                print("报告为空")
+                return reportlist
             msg = email.get_origin_text(i,email_user,password,pop3_server)
             analysis_msg = email.parse_msg(msg)
             if "Text" not  in analysis_msg.keys() or "Subject"not  in analysis_msg.keys() or "测试报告" not in analysis_msg["Subject"] :
                 continue
-            if  source in analysis_msg["Text"] and time in analysis_msg["Subject"]:
-                print("你好..........")
-                analysis_msg["email_id"] = i
+            if  source in analysis_msg["Text"] and time in analysis_msg["Date"]:
+                analysis_msg["email_code"] = i
                 list = [i,analysis_msg]
                 reportlist.append(list)
                 break
         return reportlist[-1][-1]
 
 if __name__ == '__main__':
-    msg = email.get_origin_text(99,"864927796@qq.com","ednzygrscxtdbfjc","pop.qq.com")
-    email.save_att_file(msg,"D:\\FutureHxh\\myproject")
-    # print(email.parse_msg(msg))
+    msg = email.get_origin_text(6290,"huangxh@joysim.cn","BUBLVWx5AU7mK4vA","pop.qiye.aliyun.com")
+    # email.save_att_file(msg,"D:\\FutureHxh\\myproject")
+    print(email.parse_msg(msg))
     # report = email.get_reportlist("V车店UI","2022-10-13","864927796@qq.com","ednzygrscxtdbfjc","pop.qq.com")
     # print(report)
