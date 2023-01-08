@@ -7,3 +7,5 @@ uWSGI==2.0.21
 APScheduler==3.9.1
 BeautifulSoup4==4.11.1
 django-extensions==3.2.1
+pyaml==21.10.1
+orjson==3.8.3

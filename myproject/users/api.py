@@ -18,7 +18,7 @@ from ninja.pagination import paginate,PageNumberPagination  #分页
 router = Router(tags=["users"])
 
 # 注册
-@router.post("/register/",auth=None)
+@router.post("/register/")
 def user_register(request,payload:RegisterIn):
     if payload.password != payload.confirm_password:
         return response(error=Error.PAWD_ERROR)
