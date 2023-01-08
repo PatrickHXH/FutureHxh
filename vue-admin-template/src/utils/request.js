@@ -20,12 +20,12 @@ service.interceptors.request.use(
   },
   error => {
     // 请求错误时返回
-    console.log(error) // for debug
+    console.log("111",error) // for debug
     return Promise.reject(error)
   }
 )
 
-// 相应拦截器
+// 响应拦截器
 service.interceptors.response.use(
   response => {
     const res = response.data
@@ -37,10 +37,13 @@ service.interceptors.response.use(
     }
   },
   error => {
-    console.log('err' + error)
+    console.log(error.response)
+    if (error.response.status === 403) {
+      Message.error(error.response.data.detail)
+    }
     // 如果返回等于402或401
-    if (error.response.data.status === 402 || error.response.data.status === 401) {
-      Message.error(new Error('token失效'))
+    if (error.response.status === 402 || error.response.data.status === 401) {
+      Message.error(error.response.data.detail)
       this.$router.push({ path: '/login' })
     }
     return Promise.reject(error)
