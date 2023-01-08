@@ -10,8 +10,7 @@
 
 <script>
 import { Message } from 'element-ui'
-import 'github-markdown-css'
-import 'highlight.js/styles/github.css'
+
 // import Swagger from '../md/Swagger.md'
 
 export default {
