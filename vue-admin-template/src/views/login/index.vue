@@ -247,4 +247,8 @@ $light_gray:#eee;
     user-select: none;
   }
 }
+
+.el-button--success{
+  margin-left: 0
+}
 </style>
