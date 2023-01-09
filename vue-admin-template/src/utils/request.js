@@ -44,7 +44,8 @@ service.interceptors.response.use(
     // 如果返回等于402或401
     if (error.response.status === 402 || error.response.data.status === 401) {
       Message.error(error.response.data.detail)
-      this.$router.push({ path: '/login' })
+      // this.$router.push({ path: '/login' })
+      window.location.href='/'
     }
     return Promise.reject(error)
   }
