@@ -12,7 +12,7 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 # 可选：设置镜像源为国内
-COPY pip.conf /root/.pip/pip.conf
+#COPY pip.conf /root/.pip/pip.conf
 
 # 容器内创建 myproject 文件夹
 ENV APP_HOME=/var/www/html/myproject
