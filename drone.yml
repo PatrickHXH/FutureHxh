@@ -1,0 +1,66 @@
+version: '3'
+networks:
+  drone:
+    external: false
+services:
+  # 容器名称
+  drone-server:
+    container_name: drone
+    # 构建所使用的镜像
+    image: drone/drone
+    # 映射容器内80端口到宿主机的8611端口8611端口,若修改的话，那么上面Gitee上也需要进行修改
+    ports:
+      - 8888:80
+    # 映射容器内/data目录到宿主机的目录
+    volumes:
+      - /usr/local/soft/drone/data:/data
+    # 容器随docker自动启动
+    restart: always
+    privileged: true
+    networks:
+      - drone
+    environment:
+      # Gitee 服务器地址
+      - DRONE_GITHUB_SERVER=https://github.com
+      # Gitee OAuth2客户端ID
+      # - DRONE_GITEA_CLI（上面的Client ID值）
+      - DRONE_GITHUB_CLIENT_ID=46fc17be21d9e19006e5
+      # Gitee OAuth2客户端密钥（上面的Client Secret值）
+      - DRONE_GITHUB_CLIENT_SECRET=959bebadb4aa973b19ff1ddffdb89b9c2915cf07
+      # drone的共享密钥（生成rpc密钥）
+      - DRONE_RPC_SECRET=4667c5b161567151dbc6e662e0591ecb
+      # drone的主机名(改成自己的域名获得ip+端口(注意是drome的))
+      - DRONE_SERVER_HOST=121.4.54.4:8888
+      # 外部协议方案根据你的域名判断是http还是https(ip加端口是http)
+      - DRONE_SERVER_PROTO=http
+      - DRONE_GIT_ALWAYS_AUTH=false
+     # 创建管理员账户，这里对应为gitee的用户名(也就是登录的账号,不是昵称)(填错了回导致自动化部署失败)
+      - DRONE_USER_CREATE=username:PatrickHXH,admin:true
+
+  docker-runner:
+    container_name: drone-runner
+    image: drone/drone-runner-docker
+    restart: always
+    privileged: true
+    networks:
+      - drone
+    depends_on:
+      - drone-server
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /sync/drone/agent/drone.key:/root/drone.key
+    environment:
+      # 用于连接到Drone服务器的协议。该值必须是http或https。(同上)
+      - DRONE_RPC_PROTO=http
+      # 用于连接到Drone服务器的主机名(同上)
+      - DRONE_RPC_HOST=121.4.54.4:8888
+      # Drone服务器进行身份验证的共享密钥，和上面设置一样（生成rpc密钥）
+      - DRONE_RPC_SECRET=4667c5b161567151dbc6e662e0591ecb
+      # 限制运行程序可以执行的并发管道数
+      - DRONE_RUNNER_CAPACITY=2
+        # docker runner 名称
+      - DRONE_RUNNER_NAME=docker-runner
+      - DRONE_DEBUG=true                      # 调试相关，部署的时候建议先打开
+      - DRONE_LOGS_DEBUG=true                 # 调试相关，部署的时候建议先打开
+      - DRONE_LOGS_TRACE=true                 # 调试相关，部署的时候建议先打开
+      - TZ=Asia/Shanghai
