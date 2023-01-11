@@ -56,7 +56,7 @@ services:
       - "8000"
     volumes:
       - ./myproject:/var/www/html/myproject # 挂载项目代码
-      - ./myproject/backendstatic:/var/www/html/myproject/static # 以数据卷挂载容器内static文件
+      - ./myproject/backendstatic:/var/www/html/myproject/backendstatic # 以数据卷挂载容器内static文件
       #- media_vol:/var/www/html/myproject/media # 以数据卷挂载容器内用户上传媒体文件
       - ./compose/uwsgi:/tmp # 挂载uwsgi日志
     networks:

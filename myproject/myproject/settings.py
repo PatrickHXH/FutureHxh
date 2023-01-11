@@ -142,6 +142,7 @@ USE_TZ = False
 # 项目上传文件
 REPORT_DIR = os.path.join(BASE_DIR, "backendstatic", "reports")
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'backendstatic')
 # 设置静态目录
 STATIC_URL = '/backendstatic/'
 STATICFILES_DIRS = [
