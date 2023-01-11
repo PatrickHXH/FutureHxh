@@ -142,13 +142,13 @@ USE_TZ = False
 # 项目上传文件
 REPORT_DIR = os.path.join(BASE_DIR, "backendstatic", "reports")
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'backendstatic')
+
 # 设置静态目录
 STATIC_URL = '/backendstatic/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "backendstatic"),
-]
-
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, "backendstatic"),
+# ]
+STATIC_ROOT = os.path.join(BASE_DIR, 'backendstatic')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
