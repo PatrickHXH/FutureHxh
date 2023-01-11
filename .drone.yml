@@ -13,3 +13,4 @@ steps:
       - npm install --registry=https://registry.npm.taobao.org
       - export NODE_OPTIONS=--openssl-legacy-provider
       - npm run build:stage
+      -
