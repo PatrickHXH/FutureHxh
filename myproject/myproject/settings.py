@@ -60,6 +60,7 @@ CORS_ORIGIN_WHITELIST = (
     'http://127.0.0.1:9528',
     'http://localhost:9528',
     'http://121.4.54.4:9528'
+    'http://121.4.54.4:80'
 )
 CORS_ALLOW_CREDENTIALS = True  # 允许携带cookie
 CORS_ORIGIN_ALLOW_ALL = True
@@ -95,11 +96,11 @@ DATABASES = {
     # }
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'HOST': 'localhost',  # 数据库主机
+        'NAME': 'myproject', # 数据库名
+        'HOST': 'db',  # 数据库主机
         'PORT': 3306,  # 数据库端口
         'USER': 'root',  # 数据库用户名
         'PASSWORD': 'patrick950207',  # 数据库用户密码
-        'NAME': 'django_demo'  # 数据库名字
     }
 }
 
@@ -158,7 +159,7 @@ REST_FRAMEWORK={ "DATETIME_FORMAT":"%Y-%m-%d %H:%M:%S" }
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379",
+        "LOCATION": "redis://redis:6379",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
