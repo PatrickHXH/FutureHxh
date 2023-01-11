@@ -1,0 +1,15 @@
+kind: pipeline # 定义一个管道
+type: docker # 定义管道类型
+name: build # 定义管道名称
+
+clone:
+  disable: false # 启用代码拉取
+
+steps:
+  - name: build-project # 步骤名称
+    depends_on: [clone] # 依赖的步骤，
+    commands: #执行命令
+      - cd /TestProject/vue-admin-template
+      - npm install --registry=https://registry.npm.taobao.org
+      - export NODE_OPTIONS=--openssl-legacy-provider
+      - npm run build:stage
