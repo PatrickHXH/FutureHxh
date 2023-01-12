@@ -1,5 +1,8 @@
 # 建立 python 3.9环境
-FROM python:3.9.16
+FROM python:3.9
+
+
+RUN ln -s /usr/bin/python3.9 /usr/bin/python3
 
 # 安装netcat
 RUN apt-get update && apt install -y netcat
