@@ -74,7 +74,7 @@ services:
   nginx:
     build: ./compose/nginx
     ports:
-      - "80:80"
+      - "8080:8080"
       - "443:443"
     expose:
       - "80"
