@@ -2,7 +2,7 @@
 FROM python:3.9
 
 
-RUN ln -s /usr/bin/python3.9 /usr/bin/python3
+RUN ln -fs /usr/bin/python3.9 /usr/bin/python3
 
 # 安装netcat
 RUN apt-get update && apt install -y netcat
