@@ -29,7 +29,10 @@ ADD . $APP_HOME
 RUN /usr/local/bin/python -m pip install --upgrade pip
 
 # 安装项目依赖
-RUN pip install -r requirements.txt
+#RUN pip install -r requirements.txt
+
+# 安装项目依赖
+RUN python3 -m pip install -r requirements.txt
 
 # 移除\r in windows
 RUN sed -i 's/\r//' ./start.sh
