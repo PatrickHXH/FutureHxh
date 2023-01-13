@@ -3,15 +3,20 @@ version: "3"
  
 volumes: # 自定义数据卷
   #定义数据卷同步存放容器内mysql数据
-  db_vol: 
+  db_vol: /var/lib/mysql
   #定义数据卷同步存放redis数据
-  redis_vol: 
+  redis_vol: /usr/local/redis
   #定义数据卷同步存放web项目用户上传到media文件夹的数据
   media_vol: 
   #定义数据卷同步存放web项目static文件夹的数据
   static_vol:  
- 
- 
+  #自定义前端项目代码
+  dist_vol: ./vue-admin-template/dist
+  #自定义后端项目代码
+  back_vol: ./myproject
+  #自定义后端静态资源
+  back_static_vol: ./myproject/backendstatic
+
 networks: # 自定义网络(默认桥接), 不使用links通信
   nginx_network:
     driver: bridge
@@ -55,8 +60,8 @@ services:
     expose:
       - "8000"
     volumes:
-      - ./myproject:/var/www/html/myproject # 挂载项目代码
-      - ./myproject/backendstatic:/var/www/html/myproject/backendstatic # 以数据卷挂载容器内static文件
+      - back_vol:/var/www/html/myproject # 挂载项目代码
+      - back_static_vol:/var/www/html/myproject/backendstatic # 以数据卷挂载容器内static文件
       #- media_vol:/var/www/html/myproject/media # 以数据卷挂载容器内用户上传媒体文件
       - ./compose/uwsgi:/tmp # 挂载uwsgi日志
     networks:
@@ -82,7 +87,7 @@ services:
       - ./compose/nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf # 挂载nginx配置文件
       - ./compose/nginx/ssl:/usr/share/nginx/ssl # 挂载ssl证书目录
       - ./compose/nginx/log:/usr/local/nginx/logs # 挂载日志
-      - ./vue-admin-template/dist:/usr/local/nginx/html/dist # 挂载静态前端项目
+      - dist_vol:/usr/local/nginx/html/dist # 挂载静态前端项目
       #- media_vol:/usr/local/nginx/html/media # 挂载用户上传媒体文件
     networks:
       - nginx_network
