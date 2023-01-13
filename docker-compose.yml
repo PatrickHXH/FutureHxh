@@ -2,19 +2,19 @@ version: "3"
  
 volumes: # 自定义数据卷
   #定义数据卷同步存放容器内mysql数据
-  db_vol: /var/lib/mysql
+  db_vol: {/var/lib/mysql}
   #定义数据卷同步存放redis数据
-  redis_vol: /usr/local/redis
+  redis_vol: {/usr/local/redis}
   #定义数据卷同步存放web项目用户上传到media文件夹的数据
   media_vol: 
   #定义数据卷同步存放web项目static文件夹的数据
   static_vol:  
   #自定义前端项目代码
-  dist_vol: ./vue-admin-template/dist
+  dist_vol: {./vue-admin-template/dist}
   #自定义后端项目代码
-  back_vol: ./myproject
+  back_vol: {./myproject}
   #自定义后端静态资源
-  back_static_vol: ./myproject/backendstatic
+  back_static_vol: {./myproject/backendstatic}
 
 networks: # 自定义网络(默认桥接), 不使用links通信
   nginx_network:
