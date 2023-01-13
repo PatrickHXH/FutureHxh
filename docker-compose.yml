@@ -46,7 +46,7 @@ services:
     networks:  
       - db_network
     volumes:
-      - ../var/lib/mysql:/var/lib/mysql:rw" # 挂载数据库数据, 可读可写
+      - /var/lib/mysql:/var/lib/mysql:rw # 挂载数据库数据, 可读可写
       - ./compose/mysql/conf/my.cnf:/etc/mysql/my.cnf # 挂载配置文件
       - ./compose/mysql/init:/docker-entrypoint-initdb.d/ # 挂载数据初始化sql脚本
     ports:
