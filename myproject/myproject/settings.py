@@ -98,8 +98,8 @@ DATABASES = {
     # }
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        # 'NAME':'django_demo' ,  #测试数据库名
-        'NAME': 'myproject', # 生产数据库名
+        'NAME':'django_demo' ,  #测试数据库名
+        # 'NAME': 'myproject', # 生产数据库名
         # 'HOST': '127.0.0.1',  # 测试数据库主机
         'HOST': 'db',  # 生产数据库主机
         'PORT': 3306,  # 数据库端口
