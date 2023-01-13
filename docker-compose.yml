@@ -32,7 +32,7 @@ services:
     networks:
       - redis_network
     volumes:
-      - redis_vol: /data # 通过挂载给redis数据备份
+      - redis_vol:/data # 通过挂载给redis数据备份
       - ./compose/redis/redis.conf: /etc/redis/redis.conf # 挂载redis配置文件
     ports:
       - "6379:6379"
@@ -46,7 +46,7 @@ services:
     networks:  
       - db_network
     volumes:
-      - db_vol: /var/lib/mysql:rw # 挂载数据库数据, 可读可写
+      - db_vol:/var/lib/mysql:rw # 挂载数据库数据, 可读可写
       - ./compose/mysql/conf/my.cnf: /etc/mysql/my.cnf # 挂载配置文件
       - ./compose/mysql/init: /docker-entrypoint-initdb.d/ # 挂载数据初始化sql脚本
     ports:
@@ -59,10 +59,10 @@ services:
     expose:
       - "8000"
     volumes:
-      - back_vol: /var/www/html/myproject # 挂载项目代码
-      - back_static_vol: /var/www/html/myproject/backendstatic # 以数据卷挂载容器内static文件
+      - back_vol:/var/www/html/myproject # 挂载项目代码
+      - back_static_vol:/var/www/html/myproject/backendstatic # 以数据卷挂载容器内static文件
       #- media_vol:/var/www/html/myproject/media # 以数据卷挂载容器内用户上传媒体文件
-      - ./compose/uwsgi: /tmp # 挂载uwsgi日志
+      - ./compose/uwsgi:/tmp # 挂载uwsgi日志
     networks:
       - nginx_network
       - db_network  
@@ -83,10 +83,10 @@ services:
     expose:
       - "80"
     volumes:
-      - ./compose/nginx/nginx.conf: /etc/nginx/conf.d/nginx.conf # 挂载nginx配置文件
-      - ./compose/nginx/ssl: /usr/share/nginx/ssl # 挂载ssl证书目录
-      - ./compose/nginx/log: /usr/local/nginx/logs # 挂载日志
-      - dist_vol: /usr/local/nginx/html/dist # 挂载静态前端项目
+      - ./compose/nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf # 挂载nginx配置文件
+      - ./compose/nginx/ssl:/usr/share/nginx/ssl # 挂载ssl证书目录
+      - ./compose/nginx/log:/usr/local/nginx/logs # 挂载日志
+      - dist_vol:/usr/local/nginx/html/dist # 挂载静态前端项目
       #- media_vol:/usr/local/nginx/html/media # 挂载用户上传媒体文件
     networks:
       - nginx_network
