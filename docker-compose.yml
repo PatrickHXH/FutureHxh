@@ -59,7 +59,7 @@ services:
     # ports:
     #   - "8000:8000"
     expose:
-      - "8000:8000"
+      - "8000"
     volumes:
       - ./myproject:/var/www/html/myproject # 挂载项目代码
       - ./myproject/backendstatic:/var/www/html/myproject/backendstatic # 以数据卷挂载容器内static文件
