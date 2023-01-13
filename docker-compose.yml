@@ -36,7 +36,7 @@ services:
  
  
   db:
-    image: mysql:5.7
+    image: mysql:5.7.40
     env_file:  
       - ./myproject/.env # 使用了环境变量文件
     networks:  
