@@ -89,6 +89,7 @@ services:
       - ./compose/nginx/ssl:/usr/share/nginx/ssl # 挂载ssl证书目录
       - ./compose/nginx/log:/usr/local/nginx/logs # 挂载日志
       - ./vue-admin-template/dist:/usr/local/nginx/html/dist # 挂载静态前端项目
+      - ./myproject/backendstatic:/user/local/nginx/html/backendstatic  #挂载后端静态文件
       #- media_vol:/usr/local/nginx/html/media # 挂载用户上传媒体文件
     networks:
       - nginx_network
