@@ -1,16 +1,13 @@
 kind: pipeline
-type: exec
-name: auto_build
+type: docker
+name: build_test
 
 clone:
   disable: false # 启用代码拉取
 
-platform:
-  os: linux
-  arch: amd64
-
 steps:
-- name: test001
-  commands:
-  - echo hello world
-  - pwd
+  - name: test1 # 步骤名称
+    image: nginx # 使用镜像
+    # depends_on: [clone] # 依赖的步骤，
+    commands: # 执行命令
+      - pwd # 查看当前目录
