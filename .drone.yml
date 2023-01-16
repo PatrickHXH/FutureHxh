@@ -27,4 +27,4 @@ steps:
       - web
     restart: always
     commands: # 执行命令
-      - pwd # 查看当前目录 
+      - pwd ## 查看当前目录 
