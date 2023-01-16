@@ -1,7 +1,6 @@
 # 建立 python 3.9环境
 FROM python:3.9
 
-
 RUN ln -fs /usr/bin/python3.9 /usr/bin/python3
 
 # 安装netcat
@@ -28,8 +27,8 @@ ADD . $APP_HOME
 # 更新pip版本
 RUN /usr/local/bin/python -m pip install --upgrade pip
 
-# 安装项目依赖
-#RUN pip install -r requirements.txt
+# 添加当前依赖至镜像
+ADD ./requirements.txt $APP_HOME/requirements.txt
 
 # 安装项目依赖
 RUN python3 -m pip install -r requirements.txt
