@@ -8,23 +8,7 @@ clone:
 steps:
   - name: fronted_build # 步骤名称
     image: nginx # 使用镜像
-    # depends_on: [clone] # 依赖的步骤，
-    ports:
-      - "8080:8080"
-      - "443:443"
-    expose:
-      - "80"
-    volumes:
-      - ./compose/nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf # 挂载nginx配置文件
-      - ./compose/nginx/ssl:/usr/share/nginx/ssl # 挂载ssl证书目录
-      - ./compose/nginx/log:/usr/local/nginx/logs # 挂载日志
-      - ./vue-admin-template/dist:/usr/local/nginx/html/dist # 挂载静态前端项目
-      - ./myproject/backendstatic:/user/local/nginx/html/backendstatic  #挂载后端静态文件
-      #- media_vol:/usr/local/nginx/html/media # 挂载用户上传媒体文件
-    networks:
-      - nginx_network
-    depends_on:
-      - web
-    restart: always
-    commands: # 执行命令
-      - pwd ## 查看当前目录 
+    depends_on: [clone] # 依赖的步骤，
+    commands: # 当前步骤执行的命令
+      - npm install
+      - npm run build:stage
