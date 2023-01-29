@@ -6,11 +6,12 @@ server:
   host: 121.4.54.4
   user: root
   port: 22
-  password: Patrick950207
+  password: 
+    from_secret: Patrick950207
 
 clone:
   disable: true
-  
+
 steps:
 - name: greeting
   commands:
