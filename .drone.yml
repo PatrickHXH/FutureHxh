@@ -4,6 +4,8 @@ name: deploy
 
 clone:
   disable: true # 禁用拉取
+  git:
+    image: plugins/git:next
 
 steps:
   - name: deploy-project
