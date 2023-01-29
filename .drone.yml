@@ -24,24 +24,26 @@ steps:
       # 编写脚本，可根据具体情况编写
       script:
         - echo ====开始部署=======
-        - echo ====拉取代码=======
-        - cd /TestProject
-        - which git
-        - git pull origin main
-        - echo ====安装前端依赖======
-        - cd /TestProject/vue-admin-template
-        - npm install --registry=https://registry.npm.taobao.org
-        - export NODE_OPTIONS=--openssl-legacy-provider
-        - echo ====打包前端项目======
-        - npm run build:stage
-        - echo ====重新构建镜像=======
-        - cd /TestProject
-        - docker-compose stop
-        - docker-compose build
-        - echo ====重新启动容器=======
-        - docker-compose up -d
-        - echo ====删除所有为None的镜像=======
-        - docker rmi $(docker images -f "dangling=true" -q
+        - chmod 755 run.sh
+        - ./run.sh
+        # - echo ====拉取代码=======
+        # - cd /TestProject
+        # - which git
+        # - git pull origin main
+        # - echo ====安装前端依赖======
+        # - cd /TestProject/vue-admin-template
+        # - npm install --registry=https://registry.npm.taobao.org
+        # - export NODE_OPTIONS=--openssl-legacy-provider
+        # - echo ====打包前端项目======
+        # - npm run build:stage
+        # - echo ====重新构建镜像=======
+        # - cd /TestProject
+        # - docker-compose stop
+        # - docker-compose build
+        # - echo ====重新启动容器=======
+        # - docker-compose up -d
+        # - echo ====删除所有为None的镜像=======
+        # - docker rmi $(docker images -f "dangling=true" -q
         - echo =======部署结束=======
 
 
