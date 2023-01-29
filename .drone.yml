@@ -1,14 +1,12 @@
 kind: pipeline
-type: docker
+type: ssh
 name: test
-
-clone:
-  disable: false # 启用代码拉取
+server:
+  host: 121.4.54.4
+  user: root
+  password: Patrick950207
 
 steps:
-  - name: fronted_build # 步骤名称
-    image: testproject-nginx # 使用镜像
-    depends_on: [clone] # 依赖的步骤，
-    commands: # 当前步骤执行的命令
-      - npm install
-      - npm run build:stage
+  - name: pull # 步骤名称
+    commands:
+    - git pull origin main
