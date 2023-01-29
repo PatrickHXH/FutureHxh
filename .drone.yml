@@ -1,3 +1,4 @@
+---
 kind: pipeline
 type: ssh
 name: test
@@ -7,7 +8,7 @@ server:
   user: root
   port: 22
   password: 
-    from_secret: Patrick950207
+    from_secret: ssh_password
 
 clone:
   disable: true
