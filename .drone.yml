@@ -37,5 +37,5 @@ steps:
         - docker-compose stop
         - docker-compose build
         - echo ====重新启动容器=======
-        - docker-compose up
+        - docker-compose up -d
         - echo =======部署结束=======
