@@ -8,6 +8,9 @@ server:
   port: 22
   password: Patrick950207
 
+clone:
+  disable: true
+  
 steps:
 - name: greeting
   commands:
