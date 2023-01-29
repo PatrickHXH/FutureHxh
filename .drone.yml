@@ -1,3 +1,24 @@
+---
+kind: pipeline
+type: ssh
+name: default
+
+server:
+  # 部署主机的IP  
+  host: 121.4.54.4
+  # 部署主机的登录账号，需从Drone中获取密钥名ssh_user的值，创建方式见下面
+  username:
+    from_secret: ssh_user
+  # 部署主机的登录密码，需从Drone中获取密钥名ssh_pwd的值，创建方式见下面
+  password:
+    from_secret: ssh_pwd
+  # 端口号
+  port: 22
+
+steps:
+- name: greeting
+  commands:
+  - echo hello world
 # kind: pipeline
 # type: docker
 # name: deploy
@@ -45,24 +66,4 @@
 #         - echo =======部署结束=======
 
 
----
-kind: pipeline
-type: ssh
-name: default
 
-server:
-  # 部署主机的IP  
-  host: 121.4.54.4
-  # 部署主机的登录账号，需从Drone中获取密钥名ssh_user的值，创建方式见下面
-  username:
-    from_secret: ssh_user
-  # 部署主机的登录密码，需从Drone中获取密钥名ssh_pwd的值，创建方式见下面
-  password:
-    from_secret: ssh_pwd
-  # 端口号
-  port: 22
-
-steps:
-- name: greeting
-  commands:
-  - echo hello world
