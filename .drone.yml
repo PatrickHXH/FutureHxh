@@ -4,8 +4,6 @@ name: deploy
 
 clone:
   disable: true # 禁用拉取
-  git:
-    image: plugins/git:next
 
 steps:
   - name: deploy-project
@@ -24,6 +22,8 @@ steps:
       # 设置超时
       command_timeout: 10m
       # 编写脚本，可根据具体情况编写
+      depends_on:
+        - drone/git
       script:
         - echo ====开始部署=======
         - echo ====拉取代码=======
