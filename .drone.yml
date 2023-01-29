@@ -1,19 +1,28 @@
----
 kind: pipeline
-type: ssh
-name: test
-
-server:
-  host: 121.4.54.4
-  user: root
-  port: 22
-  password: 
-    from_secret: ssh_password
+type: docker
+name: deploy
 
 clone:
-  disable: true
+  disable: true # 禁用拉取、
 
 steps:
-- name: greeting
-  commands:
-  - echo hello world
+  - name: deploy-project
+    image: appleboy/drone-ssh
+    settings:
+      # 部署主机的IP  
+      host: 121.4.54.4
+      # 部署主机的登录账号，需从Drone中获取密钥名ssh_user的值，创建方式见下面
+      username:
+        from_secret: ssh_user
+      # 部署主机的登录密码，需从Drone中获取密钥名ssh_pwd的值，创建方式见下面
+      password:
+        from_secret: ssh_pwd
+      # 端口号
+      port: 22
+      # 设置超时
+      command_timeout: 10m
+      # 编写脚本，可根据具体情况编写
+      script:
+        - echo ====开始部署=======
+        - cd /TestProject
+        - echo =======测试结束=======
