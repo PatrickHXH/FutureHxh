@@ -25,4 +25,5 @@ steps:
       script:
         - echo ====开始部署=======
         - cd /TestProject
+        - pwd
         - echo =======测试结束=======
