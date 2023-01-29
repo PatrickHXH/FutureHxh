@@ -5,8 +5,8 @@ name: test
 server:
   host: 121.4.54.4
   user: root
-  password: 
-    from_secret: password
+  port: 22
+  password: Patrick950207
 
 steps:
 - name: greeting
