@@ -34,7 +34,7 @@ steps:
         - npm run build:stage
         - echo ====重新构建镜像=======
         - cd /TestProject
-        - docker-compose pasuse
+        - docker-compose stop
         - docker-compose build
         - echo ====重新启动容器=======
         - docker-compose up
