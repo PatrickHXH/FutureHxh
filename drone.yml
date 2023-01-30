@@ -3,7 +3,7 @@ networks:
   drone:
     external: false
 services:
-  # 容器名称
+  # 容器名称test
   drone-server:
     container_name: drone
     # 构建所使用的镜像
