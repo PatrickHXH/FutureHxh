@@ -20,7 +20,7 @@ steps:
       # 端口号
       port: 22
       # 设置超时
-      command_timeout: 10m
+      command_timeout: 20m
       # 编写脚本，可根据具体情况编写
       depends_on:
         - drone/git
