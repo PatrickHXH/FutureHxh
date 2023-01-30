@@ -42,7 +42,7 @@ steps:
         - echo ====重新启动容器=======
         - docker-compose up -d
         - echo ====删除所有为None的镜像=======
-        - docker rmi $(docker images -f "dangling=true" -q
+        - docker rmi $(docker images -f "dangling=true" -q)
         - echo =======部署结束=======
 
 
