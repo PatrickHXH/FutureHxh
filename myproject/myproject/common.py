@@ -35,7 +35,8 @@ class Error:
 
     NOT_PERMISSION={"10086":"无该接口权限"}
 
-
+    MENU_TITLE_EXISTS={"10087":"菜单名称重复"}
+    MENU_ID_AND_PARENT_ID_IS_SAME={"10088":"不能选择自己为父菜单"}
 def response(success:bool = True, error = None, result=[]):
     if error is None:
         error_code = ""

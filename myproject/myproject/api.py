@@ -4,6 +4,7 @@ from reports.apis.report_api import router as reports_router
 from reports.apis.email_api import router as emails_router
 from reports.apis.project_api import  router as projects_router
 from scheduled.apis.scheduled_api import router as scheduled_router
+from rolepermission.apis.menu_api import router as menu_router
 from rolepermission.apis.role_api import router as role_router
 from rolepermission.apis.permission_api import router as permisssion_router
 from ninja.security import HttpBearer
@@ -68,3 +69,4 @@ api.add_router("/projects/", projects_router)
 api.add_router("/scheduled/", scheduled_router)
 api.add_router("/rolepermission/", role_router)
 api.add_router("/permission/",permisssion_router)
+api.add_router("/menu/",menu_router)
