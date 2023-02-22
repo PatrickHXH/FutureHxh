@@ -13,7 +13,6 @@ done
 
 python manage.py collectstatic --noinput&&
 python manage.py makemigrations&&
-python manage.py migrate rolepermission --fake&&
 python manage.py migrate&&
 uwsgi --ini /var/www/html/myproject/uwsgi.ini&&
 tail -f /dev/null
