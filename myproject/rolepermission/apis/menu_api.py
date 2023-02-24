@@ -182,36 +182,51 @@ def list_role_menu(request,role_id:int):
 def get_user_menu(request,data:userIn):
     #获取用户名称
     username = TokenMethod.get_username(data.token)
-    #获取用户对象
-    user_obj = User.objects.get(username=username)
-    #查看用户所在组
-    group_obj = user_obj.groups.values()
-    menu_list = []
-    for i in group_obj:
-        #i为用户的角色，有了用户角色可以查找该角色有哪些权限
-        role_menu_obj = permission_role_menu.objects.filter(role_id=i["id"])
-        for j in role_menu_obj:
-            if j.menu_id in menu_list:
-                continue
-            else:
-                menu_list.append(j.menu_id)
-    print(menu_list)
-    list = []
-    for i in menu_list:
-        menu_obj = permission_menu.objects.filter(id=i,is_delete=0) #返回查询集合，所有需循环
-        for k in menu_obj:
+    if username == "admin":
+        menu_obj = permission_menu.objects.filter(is_delete=0)
+        list = []
+        for i in menu_obj:
             list.append({
-                "id": k.id,
-                "path": k.path,
-                "title": k.title,
-                "icon": k.icon,
-                "cmp": k.component,
-                "hidden":k.hidden,
-                "parent_id": k.parent_id,
+                "id": i.id,
+                "path": i.path,
+                "title": i.title,
+                "icon": i.icon,
+                "cmp": i.component,
+                "hidden": i.hidden,
                 "children": [],
+                "parent_id": i.parent_id,
             })
-    data = []
+    else:
+        #获取用户对象
+        user_obj = User.objects.get(username=username)
+        #查看用户所在组
+        group_obj = user_obj.groups.values()
+        menu_list = []
+        for i in group_obj:
+            #i为用户的角色，有了用户角色可以查找该角色有哪些权限
+            role_menu_obj = permission_role_menu.objects.filter(role_id=i["id"])
+            for j in role_menu_obj:
+                if j.menu_id in menu_list:
+                    continue
+                else:
+                    menu_list.append(j.menu_id)
+        print(menu_list)
+        list = []
+        for i in menu_list:
+            menu_obj = permission_menu.objects.filter(id=i,is_delete=0) #返回查询集合，所有需循环
+            for k in menu_obj:
+                list.append({
+                    "id": k.id,
+                    "path": k.path,
+                    "title": k.title,
+                    "icon": k.icon,
+                    "cmp": k.component,
+                    "hidden":k.hidden,
+                    "parent_id": k.parent_id,
+                    "children": [],
+                })
     # 递归，返回树形结构
+    data = []
     for i in list:
         # 判断该节点是否有子节点，用true和False返回
         is_children = children_node(list, i)
