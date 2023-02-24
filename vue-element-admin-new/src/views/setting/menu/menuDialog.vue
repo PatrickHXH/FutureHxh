@@ -99,6 +99,7 @@ export default {
   },
   // 触发生命周期，判断标题
   created() {
+    this.iconEvent()
     if (this.tid === 0) {
       this.showtitle = '新建菜单'
       this.initMenuList()
@@ -208,6 +209,7 @@ export default {
       this.visible = false
       document.addEventListener("copy", () => {
         let text = window.getSelection().toString();
+        console.log(text)
         this.ruleForm.icon = text
       });
       // if(window.isSecureContext){
