@@ -135,6 +135,7 @@ const actions = {
             if(item.parent_id ===0){
               arr.push({
                 'id': item.id,
+                'name':item.title,  
                 'meta':{
                   'title':item.title,
                   'icon':item.icon
@@ -148,6 +149,7 @@ const actions = {
             }else{
               arr.push({
                 'id': item.id,
+                'name':item.title,
                 'meta':{
                   'title':item.title,
                   'icon':item.icon
