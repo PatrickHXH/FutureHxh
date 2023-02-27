@@ -99,36 +99,6 @@ const actions = {
     return new Promise((resolve, reject) => {
       getMenu({ token: state.token }).then(response => {
         const { result } = response.data
-        // result.map(i => {
-        //   i.component = Layout
-        //   i.meta = {
-        //     'title': i.title,
-        //     'icon': i.icon
-        //   }
-        //   i.name = i.title
-        //   i.hidden = i.hidden
-        //   i.children.map(j => {
-        //     const cmp1 = j.cmp
-        //     j.component = resolve => require([`@/views${cmp1}`], resolve)
-        //     j.name = j.title
-        //     j.meta = {
-        //       'title': j.title,
-        //       'icon': j.icon
-        //     }
-        //     j.hidden = j.hidden
-        //     j.children.map(k => {
-        //       const cmp2 = k.cmp
-        //       k.name = k.title
-        //       k.hidden = k.hidden
-        //       k.component = resolve => require([`@/views/${cmp2}`], resolve)
-        //       k.meta = {
-        //         'title': k.title,
-        //         'icon': k.icon
-        //       }
-        //     })
-        //   })
-        // })
-        console.log("原来的节点结构:",result)
         // 读取树形结构所有节点
         function readNodes(nodes = [], arr = []) {
           for (const item of nodes) {
