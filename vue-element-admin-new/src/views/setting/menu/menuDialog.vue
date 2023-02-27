@@ -30,7 +30,7 @@
         </el-form-item>
         <el-form-item label="图标" prop="icon" style="">
           <div class="server-name-div">
-            <el-input v-model="ruleForm.icon" class="server-name-input"  />
+            <el-input v-model="ruleForm.icon" class="server-name-input" />
             <el-popover
               v-model="visible"
               placement="right"
@@ -207,11 +207,11 @@ export default {
     // 选择图标是触发
     iconEvent() {
       this.visible = false
-      document.addEventListener("copy", () => {
-        let text = window.getSelection().toString();
+      document.addEventListener('copy', () => {
+        const text = window.getSelection().toString()
         console.log(text)
         this.ruleForm.icon = text
-      });
+      })
       // if(window.isSecureContext){
       //   navigator.clipboard.readText().then((cliptext) => this.ruleForm.icon = cliptext)
       // }else{

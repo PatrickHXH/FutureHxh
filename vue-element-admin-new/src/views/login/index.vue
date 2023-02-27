@@ -168,10 +168,9 @@ export default {
               Message.error(resp.data.error.msg)
             }
           })
-          // .catch(() => {
-          // console.log("你好")
-          // this.loading = false
-          // })
+            .catch(() => {
+              this.loading = false
+            })
         } else {
           console.log('error submit!!')
           return false

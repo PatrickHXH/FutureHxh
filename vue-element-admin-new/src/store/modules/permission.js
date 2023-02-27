@@ -54,7 +54,7 @@ const actions = {
       // } else {
       //   accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
       // }
-      console.log('用户菜单：', menu)
+      // console.log('用户菜单：', menu)
       const accessedRoutes = menu
       commit('SET_ROUTES', accessedRoutes)
       resolve(accessedRoutes)
