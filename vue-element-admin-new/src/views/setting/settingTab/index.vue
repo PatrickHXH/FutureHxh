@@ -8,9 +8,9 @@
         <el-tab-pane label="邮件管理" name="email">
           <emailist v-if="showTab == 2" />
         </el-tab-pane>
-        <el-tab-pane label="定时任务" name="scheduler">
+        <!-- <el-tab-pane label="定时任务" name="scheduler">
           <schedulerlist v-if="showTab == 3" />
-        </el-tab-pane>
+        </el-tab-pane> -->
       </el-tabs>
     </div>
   </div>

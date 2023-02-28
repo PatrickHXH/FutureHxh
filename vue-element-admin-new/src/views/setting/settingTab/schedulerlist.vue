@@ -1,4 +1,5 @@
 <template>
+    <div class="app-container" style="height:calc(95vh)">
   <div class="main-card">
     <!-- 创建定时任务按钮 -->
     <div>
@@ -76,6 +77,7 @@
     <!-- 调用子组件 -->
     <schedulerDialog v-if="show" :tid="titleid" @cancel="closeDialog" />
   </div>
+</div>
 </template>
 
 <script>
