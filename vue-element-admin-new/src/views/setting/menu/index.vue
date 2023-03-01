@@ -1,12 +1,12 @@
 <template>
   <div class="app-container" style="height:calc(90vh)">
-    <el-card style="width: 100%;height: 100%;">
+    <el-card style="width: 100%;height: 100%;overflow:auto;">
       <!-- 创建菜单按钮 -->
       <div>
         <el-button type="primary" style="margin:10px auto" @click="create">新建菜单</el-button>
       </div>
       <!-- 菜单列表 -->
-      <div>
+      <div >
         <el-table
           :data="tableData"
           style="width: 100%;margin-bottom: 20px;"

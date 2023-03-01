@@ -1,5 +1,5 @@
 <template>
-  <div class="main-card">
+  <div class="main-card" style="overflow:auto;">
     <!-- 创建项目按钮 -->
     <div>
       <el-button type="primary" style="margin:10px auto" @click="create">添加项目</el-button>
@@ -43,7 +43,7 @@
       </el-table>
     </div>
     <!-- 分页 -->
-    <div style="text-align:center;position: fixed; left:calc(42vw);bottom: calc(5vh);">
+    <div style="text-align:center;position: fixed; left:calc(42vw);bottom: calc(2vh);">
       <el-pagination
         background
         :page-size="req.size"

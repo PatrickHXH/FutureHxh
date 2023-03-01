@@ -1,6 +1,6 @@
 <template>
-  <div class="app-container" style="height:calc(95vh)">
-    <el-card style="width: 100%;height: 100%;">
+  <div class="app-container" style="height:calc(85vh)">
+    <el-card style="width: 100%;height: 100%;overflow:auto;">
       <!-- 选择框 -->
       <el-form ref="ruleForm" :model="ruleForm" :inline="true" :rules="rules" class="demo-ruleForm">
         <el-form-item label="项目" prop="projectlabel">
@@ -60,7 +60,7 @@
         </el-table>
       </div>
       <!-- 分页 -->
-      <div style="text-align:center;position: fixed; left:calc(42vw);bottom: calc(5vh);">
+      <div style="text-align:center;position: fixed; left:calc(42vw);bottom: calc(2vh);">
         <el-pagination
           background
           :page-size="req.size"

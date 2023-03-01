@@ -1,12 +1,12 @@
 <template>
-  <div class="main-card">
+  <div class="main-card" style="overflow:auto;">
     <!-- 创建角色按钮/添加用户 -->
     <div>
       <el-button type="primary" style="margin:10px 10px;" @click="create">添加角色</el-button>
       <el-button type="primary" style="margin:10px 10px;" @click="register">添加用户</el-button>
     </div>
     <!-- 角色列表 -->
-    <div>
+    <div >
       <el-table
         :data="tableData"
         :fit="true"
@@ -42,7 +42,7 @@
       </el-table>
     </div>
     <!-- 分页 -->
-    <div style="text-align:center;position: fixed; left:calc(42vw);bottom: calc(5vh);">
+    <div style="text-align:center;position: fixed; left:calc(42vw);bottom: calc(2vh);">
       <el-pagination
         background
         :page-size="req.size"

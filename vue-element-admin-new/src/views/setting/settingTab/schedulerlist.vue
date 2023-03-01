@@ -1,6 +1,6 @@
 <template>
     <div class="app-container" style="height:calc(95vh)">
-  <div class="main-card">
+  <div class="main-card" style="overflow:auto;">
     <!-- 创建定时任务按钮 -->
     <div>
       <el-button type="primary" style="margin:10px auto" @click="create">添加定时任务</el-button>

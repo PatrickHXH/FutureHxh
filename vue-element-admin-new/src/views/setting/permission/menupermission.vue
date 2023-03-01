@@ -1,6 +1,6 @@
 <template>
   <div class="app-container" style="height:calc(95vh)">
-    <el-card style="width: 100%;height: 100%;padding: 0px;">
+    <el-card style="width: 100%;height: 100%;padding: 0px;overflow:auto;">
       <!-- 返回上一页 -->
       <div>
         <el-page-header content="授权菜单" @back="returnLastPage" />
