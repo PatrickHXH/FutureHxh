@@ -43,6 +43,9 @@ steps:
         - docker-compose up -d
         - echo ====删除所有为None的镜像=======
         - docker rmi $(docker images -f "dangling=true" -q)
+        - cho ====清除日志/无用镜像、容器、卷======
+        - cat /dev/null > *-json.log
+        - docker system prune -f
         - echo =======部署结束=======
 
 

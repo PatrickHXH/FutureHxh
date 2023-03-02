@@ -96,3 +96,12 @@ services:
     depends_on:
       - web
     restart: always
+  
+  portainer:
+    image: portainer/portainer
+    restart: always
+    ports:
+    - "9000:9000"
+    volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+    - /data/docker/portainer/data:/data
