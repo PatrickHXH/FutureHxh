@@ -22,7 +22,7 @@
 | 报告管理  | ✔️              |
 | 工具管理 | ✔️              |
 
-##windows本地环境开发
+## windows本地环境开发
 
 * 安装redis/mysql/python/node
 ```` 
@@ -81,15 +81,15 @@ npm install
 npm run dev
 ````
 
-##Linux部署
+## Linux部署
 
 介绍： 基于docker-compose+drone进行持续构建
 
-###前提：
+### 前提：
 
 服务器环境安装：Docker  || Docker-compose || Github || Node
 
-###安装:
+### 安装:
 * 修改drone.yml配置
 ```` 
 详见drone.yml配置的注释
@@ -119,7 +119,7 @@ Drone服务地址：http:$ip:8888
 * 容器部署结构
 ![](./docs/design.png)
   
-###持续构建
+### 持续构建
 * 修改.drone.yml配置
 ```` 
 详见.drone.yml配置注释
