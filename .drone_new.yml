@@ -8,18 +8,17 @@ volumes: # 声明数据卷
       path: /volumes/drone/fronted # 宿主机目录
 clone:
   disable: false # 启用拉取
+  volumes: #挂载数据卷
+  - name: node_modules
+    path: /drone/src/vue-element-admin-new
 
 steps:
-  - name: pull_fronted_git #挂载前端git代码至宿主机
-    image: drone/git
-    depends_on: [clone]
-    volumes: #挂载数据卷
-      - name: node_modules
-        path: /drone/src/vue-element-admin-new
-
+  # - name: pull_fronted_git #挂载前端git代码至宿主机
+  #   image: drone/git
+  #   depends_on: [clone]
   - name: install-npm # 安全前端依赖
     image: node:latest # 使用镜像
-    depends_on: [pull_fronted_git] # 依赖的步骤，
+    depends_on: [clone] # 依赖的步骤，
     volumes: # 挂载数据卷
       - name: node_modules # 数据卷名称
         path: /drone/src/fronted_contain # 容器内目录 绝对路径
