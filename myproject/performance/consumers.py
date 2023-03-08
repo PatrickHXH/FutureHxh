@@ -7,7 +7,6 @@ from channels.generic.websocket import WebsocketConsumer
 import datetime
 from threading import Lock
 import math
-import psutil
 import paramiko
 from myproject.settings import BASE_DIR
 import os

@@ -13,3 +13,4 @@ pymysql==1.0.2
 paramiko==2.11.0
 channels==3.0.5
 channels-redis==3.4.1
+psutil==5.9.0
