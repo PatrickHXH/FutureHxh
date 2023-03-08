@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     'corsheaders',
     'scheduled',
     "django_apscheduler",
-    "rolepermission"
+    "rolepermission",
+    "performance",
+    'channels'    #websocket配置
 ]
 
 MIDDLEWARE = [
@@ -172,4 +174,17 @@ CACHES = {
     }
 }
 
+#websocket配置
+CHANNEL_LAYERS = {
+    "default":{
+        "BACKEND":"channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+                # "hosts":["redis://127.0.0.1:6379/2"], #测试环境
+                "hosts":["redis://redis:6379/2"], #生产环境
+        }
+    }
 
+}
+
+#websocket配置
+ASGI_APPLICATION = 'myproject.routing.application'

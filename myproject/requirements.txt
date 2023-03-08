@@ -10,3 +10,6 @@ django-extensions==3.2.1
 pyaml==21.10.1
 orjson==3.8.3
 pymysql==1.0.2
+paramiko==2.11.0
+channels==3.0.5
+channels-redis==3.4.1
