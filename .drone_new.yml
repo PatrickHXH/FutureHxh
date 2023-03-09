@@ -11,7 +11,7 @@ clone:
 
 steps:
   - name: build-fronted # 安全前端依赖 
-    image: node:latest # 使用镜像
+    image: node:16.13.0 # 使用镜像
     depends_on: [clone] # 依赖的步骤
     volumes: # 挂载数据卷
       - name: node_modules # 数据卷名称
@@ -22,5 +22,5 @@ steps:
       - git config --global http.sslverify "false"
       - git config --global url."https://github.com/".insteadOf "ssh://git@github.com/"
       - npm install # 安装node_modules包
-      - set NODE_OPTIONS=--openssl-legacy-provider
+      # - set NODE_OPTIONS=--openssl-legacy-provider
       - npm run build:stage # 执行编译
