@@ -21,7 +21,7 @@ steps:
         path: /drone/src/vue-element-admin-new/node_modules # 容器内目录 绝对路径
     commands: # 执行命令
       - cd /drone/src/vue-element-admin-new/ #
-      - npm config set registry https://registry.npm.taobao.org # 切换淘宝镜像
+      # - npm config set registry https://registry.npm.taobao.org # 切换淘宝镜像
       - npm cache clean --force
       - npm install # 安装node_modules包
       - export NODE_OPTIONS=--openssl-legacy-provider
