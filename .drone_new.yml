@@ -13,7 +13,7 @@ steps:
   # - name: pull_fronted_git #挂载前端git代码至宿主机
   #   image: drone/git
   #   depends_on: [clone]
-  - name: build-fronted # 安全前端依赖
+  - name: build-fronted # 安全前端依赖 
     image: node:latest # 使用镜像
     depends_on: [clone] # 依赖的步骤，
     volumes: # 挂载数据卷
