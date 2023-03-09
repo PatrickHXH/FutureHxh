@@ -10,9 +10,6 @@ clone:
   disable: false # 启用拉取
 
 steps:
-  # - name: pull_fronted_git #挂载前端git代码至宿主机
-  #   image: drone/git
-  #   depends_on: [clone]
   - name: build-fronted # 安全前端依赖 
     image: node:latest # 使用镜像
     depends_on: [clone] # 依赖的步骤
@@ -22,6 +19,7 @@ steps:
     commands: # 执行命令
       - cd /drone/src/vue-element-admin-new/ #
       - npm config set registry https://registry.npm.taobao.org # 切换淘宝镜像
+      - git config --global http.sslverify "false"
       - git config --global url."https://github.com/".insteadOf "ssh://git@github.com/"
       - npm install # 安装node_modules包
       - export NODE_OPTIONS=--openssl-legacy-provider
