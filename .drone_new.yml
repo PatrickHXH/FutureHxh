@@ -18,7 +18,7 @@ steps:
     depends_on: [clone] # 依赖的步骤，
     volumes: # 挂载数据卷
       - name: node_modules # 数据卷名称
-        path: /drone/src/vue-element-admin-new/ # 容器内目录 绝对路径
+        path: /drone/src/vue-element-admin-new/node_modules # 容器内目录 绝对路径
     commands: # 执行命令
       - cd /drone/src/vue-element-admin-new/ #
       - pwd # 查看当前目录
