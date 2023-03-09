@@ -14,7 +14,7 @@ steps:
   #   image: drone/git
   #   depends_on: [clone]
   - name: build-fronted # 安全前端依赖 
-    image: node:16.16.0 # 使用镜像
+    image: node:latest # 使用镜像
     depends_on: [clone] # 依赖的步骤，
     volumes: # 挂载数据卷
       - name: node_modules # 数据卷名称
