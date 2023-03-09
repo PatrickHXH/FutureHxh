@@ -20,7 +20,7 @@ steps:
       - name: node_modules # 数据卷名称
         path: /drone/src/vue-element-admin-new/ # 容器内目录 绝对路径
     commands: # 执行命令
-      - cd ./xx/
+      - cd /drone/src/vue-element-admin-new/
       - pwd # 查看当前目录
       - npm config set registry https://registry.npm.taobao.org # 切换淘宝镜像
       - npm install # 安装node_modules包
