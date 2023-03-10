@@ -65,4 +65,4 @@ services:
       - DRONE_LOGS_TRACE=true                 # 调试相关，部署的时候建议先打开
       - TZ=Asia/Shanghai
       - DRONE_CPU_PERIOD=75000
-      - DRONE_MEMORY_LIMIT=500*1024*1024*8
+      # - DRONE_MEMORY_LIMIT=500*1024*1024*8
