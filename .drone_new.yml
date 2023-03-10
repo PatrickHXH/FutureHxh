@@ -23,4 +23,4 @@ steps:
       - git config --global url."https://github.com/".insteadOf "ssh://git@github.com/"
       - npm install # 安装node_modules包
       - export NODE_OPTIONS=--openssl-legacy-provider
-      - npm run build:stage # 执行编译
+      - npm run build:stage # 执行编译 
