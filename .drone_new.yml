@@ -22,5 +22,5 @@ steps:
       - git config --global http.sslverify "false"
       - git config --global url."https://github.com/".insteadOf "ssh://git@github.com/"
       - npm install # 安装node_modules包
-      # - set NODE_OPTIONS=--openssl-legacy-provider
+      - export NODE_OPTIONS=--openssl-legacy-provider
       - npm run build:stage # 执行编译
