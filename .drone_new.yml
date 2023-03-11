@@ -40,6 +40,8 @@ steps:
   - name: deploy-project
     image: appleboy/drone-ssh
     depends_on: [build-fronted]
+    commands: # 执行命令
+      - pwd #
     volumes: # 挂载数据卷
       - name: drone_project # 数据卷名称
         path: /drone/src # 容器内目录 绝对路径
