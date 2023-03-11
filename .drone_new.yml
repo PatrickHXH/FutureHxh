@@ -3,6 +3,9 @@ type: docker
 name: build
 
 volumes: # 声明数据卷
+  - name: drone_project
+    host:
+      path: /volumes/drone/drone_project
   - name: node_modules # 数据卷名称
     host: # Host Volume
       path: /volumes/drone/node_modules # 宿主机目录
@@ -19,9 +22,14 @@ clone:
   disable: false # 启用拉取
 
 steps:
-  - name: build-fronted # 安全前端依赖 
+  - name: mount_code  挂载源码至宿主机
+    volumes: # 挂载数据卷
+      - name: drone_project # 数据卷名称
+        path: /drone/src/ # 容器内目录 绝对路径
+
+  - name: build-fronted # 构建前端
     image: node:latest # 使用镜像
-    depends_on: [clone] # 依赖的步骤
+    depends_on: [mount_code] # 依赖的步骤
     volumes: # 挂载数据卷
       - name: node_modules # 数据卷名称
         path: /drone/src/vue-element-admin-new/node_modules # 容器内目录 绝对路径
@@ -34,10 +42,37 @@ steps:
       - export NODE_OPTIONS=--openssl-legacy-provider
       - npm run build:stage # 执行编译   
 
-services:
-  # build: /drone/src/compose/nginx
-  # ports:
-  #   - 8081
-  # networks:
-  #   - nginx_network
-  # restart: always
+  # - name: deploy-project
+  #   image: appleboy/drone-ssh
+  #   settings:
+  #     # 部署主机的IP  
+  #     host: 121.4.54.4
+  #     # 部署主机的登录账号，需从Drone中获取密钥名ssh_user的值，创建方式见下面
+  #     username:
+  #       from_secret: ssh_user
+  #     # 部署主机的登录密码，需从Drone中获取密钥名ssh_pwd的值，创建方式见下面
+  #     password:
+  #       from_secret: ssh_pwd
+  #     # 端口号
+  #     port: 22
+  #     # 设置超时
+  #     command_timeout: 30m
+  #     # 编写脚本，可根据具体情况编写
+  #     depends_on:
+  #       - drone/git
+  #     script:
+  #       - echo ====开始部署=======
+  #       - echo ====拉取代码=======
+  #       - cd /TestProject
+  #       - echo ====重新构建镜像=======
+  #       - cd /TestProject
+  #       - docker-compose stop
+  #       - docker-compose build
+  #       - echo ====重新启动容器=======
+  #       - docker-compose up -d
+  #       - echo ====删除所有为None的镜像=======
+  #       - docker rmi $(docker images -f "dangling=true" -q)
+  #       - echo ====清除日志/无用镜像、容器、卷======
+  #       - cat /dev/null > *-json.log
+  #       - docker system prune -f
+  #       - echo =======部署结束=======
