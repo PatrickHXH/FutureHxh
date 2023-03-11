@@ -36,8 +36,8 @@ steps:
 
 services:
   # build: /drone/src/compose/nginx
-  ports:
-    - 8081
-  networks:
-    - nginx_network
-  restart: always
+  # ports:
+  #   - 8081
+  # networks:
+  #   - nginx_network
+  # restart: always
