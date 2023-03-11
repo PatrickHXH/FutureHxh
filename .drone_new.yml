@@ -35,10 +35,10 @@ steps:
       - npm run build:stage # 执行编译   
 
 services:
-  nginx:
-    build: /drone/src/compose/nginx
-    ports:
-      - "8081:8081"
-    networks:
-      - nginx_network
-    restart: always
+  -name: nginx
+  build: /drone/src/compose/nginx
+  ports:
+    - "8081:8081"
+  networks:
+    - nginx_network
+  restart: always
