@@ -42,7 +42,7 @@ steps:
     depends_on: [build-fronted]
     volumes: # 挂载数据卷
       - name: drone_project # 数据卷名称
-        path: /drone/src/ # 容器内目录 绝对路径
+        path: /drone/src # 容器内目录 绝对路径
     settings:
       # 部署主机的IP  
       host: 121.4.54.4
