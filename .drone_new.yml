@@ -35,7 +35,7 @@ steps:
       - npm run build:stage # 执行编译   
 
 services:
-  build: /drone/src/compose/nginx
+  # build: /drone/src/compose/nginx
   ports:
     - 8081
   networks:
