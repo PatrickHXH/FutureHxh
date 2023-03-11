@@ -22,14 +22,9 @@ clone:
   disable: false # 启用拉取
 
 steps:
-  - name: mount_code  挂载源码至宿主机
-    volumes: # 挂载数据卷
-      - name: drone_project # 数据卷名称
-        path: /drone/src/ # 容器内目录 绝对路径
-
   - name: build-fronted # 构建前端
     image: node:latest # 使用镜像
-    depends_on: [mount_code] # 依赖的步骤
+    depends_on: [clone] # 依赖的步骤
     volumes: # 挂载数据卷
       - name: node_modules # 数据卷名称
         path: /drone/src/vue-element-admin-new/node_modules # 容器内目录 绝对路径
@@ -42,24 +37,27 @@ steps:
       - export NODE_OPTIONS=--openssl-legacy-provider
       - npm run build:stage # 执行编译   
 
-  # - name: deploy-project
-  #   image: appleboy/drone-ssh
-  #   settings:
-  #     # 部署主机的IP  
-  #     host: 121.4.54.4
-  #     # 部署主机的登录账号，需从Drone中获取密钥名ssh_user的值，创建方式见下面
-  #     username:
-  #       from_secret: ssh_user
-  #     # 部署主机的登录密码，需从Drone中获取密钥名ssh_pwd的值，创建方式见下面
-  #     password:
-  #       from_secret: ssh_pwd
-  #     # 端口号
-  #     port: 22
-  #     # 设置超时
-  #     command_timeout: 30m
-  #     # 编写脚本，可根据具体情况编写
-  #     depends_on:
-  #       - drone/git
+  - name: deploy-project
+    image: appleboy/drone-ssh
+    volumes: # 挂载数据卷
+      - name: drone_project # 数据卷名称
+        path: /drone/src/ # 容器内目录 绝对路径
+    settings:
+      # 部署主机的IP  
+      host: 121.4.54.4
+      # 部署主机的登录账号，需从Drone中获取密钥名ssh_user的值，创建方式见下面
+      username:
+        from_secret: ssh_user
+      # 部署主机的登录密码，需从Drone中获取密钥名ssh_pwd的值，创建方式见下面
+      password:
+        from_secret: ssh_pwd
+      # 端口号
+      port: 22
+      # 设置超时
+      command_timeout: 30m
+      # 编写脚本，可根据具体情况编写
+      depends_on:
+        - [build-fronted]
   #     script:
   #       - echo ====开始部署=======
   #       - echo ====拉取代码=======
