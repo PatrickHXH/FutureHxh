@@ -36,7 +36,6 @@ steps:
 
 services:
   nginx:
-    depends_on: [build-fronted]
     build: /drone/src/compose/nginx
     ports:
       - "8081:8081"
