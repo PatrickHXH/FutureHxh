@@ -39,6 +39,7 @@ steps:
 
   - name: deploy-project
     image: appleboy/drone-ssh
+    depends_on: [build-fronted]
     volumes: # 挂载数据卷
       - name: drone_project # 数据卷名称
         path: /drone/src/ # 容器内目录 绝对路径
@@ -56,8 +57,7 @@ steps:
       # 设置超时
       command_timeout: 30m
       # 编写脚本，可根据具体情况编写
-      depends_on:
-        - [build-fronted]
+
   #     script:
   #       - echo ====开始部署=======
   #       - echo ====拉取代码=======
