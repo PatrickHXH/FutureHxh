@@ -10,14 +10,6 @@ volumes: # 声明数据卷
     host: # Host Volume
       path: /volumes/drone/node_modules # 宿主机目录
 
-networks: # 自定义网络(默认桥接), 不使用links通信
-  nginx_network:
-    driver: bridge
-  db_network:
-    driver: bridge
-  redis_network: 
-    driver: bridge
-
 clone:
   disable: false # 启用拉取
 
@@ -39,9 +31,7 @@ steps:
 
   - name: deploy-project
     image: appleboy/drone-ssh
-    depends_on: [build-fronted]
-    commands: # 执行命令
-      - pwd #
+    depends_on: [build-fronted,clone]
     volumes: # 挂载数据卷
       - name: drone_project # 数据卷名称
         path: /drone/src # 容器内目录 绝对路径
@@ -59,7 +49,6 @@ steps:
       # 设置超时
       command_timeout: 30m
       # 编写脚本，可根据具体情况编写
-
   #     script:
   #       - echo ====开始部署=======
   #       - echo ====拉取代码=======
