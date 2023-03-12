@@ -29,12 +29,9 @@ steps:
       - export NODE_OPTIONS=--openssl-legacy-provider
       - npm run build:stage # 执行编译   
 
-  - name: deploy-project
-    image: appleboy/drone-ssh
-    depends_on: [build-fronted,clone]
-    volumes: # 挂载数据卷
-      - name: drone_project # 数据卷名称
-        path: /drone/src # 容器内目录 绝对路径
+  - name: code-scp    # 将代码文件放入指定目录
+    image: appleboy/drone-scp
+    depends_on: [build-fronted]
     settings:
       # 部署主机的IP  
       host: 121.4.54.4
@@ -48,6 +45,8 @@ steps:
       port: 22
       # 设置超时
       command_timeout: 30m
+    target: /volumes/drone/code/
+    source: ./
       # 编写脚本，可根据具体情况编写
   #     script:
   #       - echo ====开始部署=======
