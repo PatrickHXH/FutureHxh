@@ -46,7 +46,7 @@ steps:
       # 设置超时
       command_timeout: 30m
     target: /volumes/drone/code/
-    source: /drone/src/
+    source: /drone/src/*
       # 编写脚本，可根据具体情况编写
   #     script:
   #       - echo ====开始部署=======
