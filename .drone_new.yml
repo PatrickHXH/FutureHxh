@@ -51,11 +51,10 @@ steps:
     image: python:3.9
     depends_on: [build-fronted-dep]
     volumes: # 挂载数据卷
-    - name: source-code # 数据卷名称
-      path: /drone/src # 容器内目录 绝对路径
-    # - name: source-code
-    #   paht: /source-code/
-    # commands: # 执行命令
+    - name: source-code
+      paht: /source-code
+    commands: # 执行命令
+      - ln -s /drone/src/ /source-code 
       # - ln -s /usr/local/lib/python3.9/site-packages/ / -r
       # - cd /drone/src/myproject/ 
       # - python3 -m pip install -r requirements.txt
