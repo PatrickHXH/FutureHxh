@@ -40,9 +40,9 @@ steps:
     # - name: source-code
     #   paht: /source-code/
     commands: # 执行命令
+      - ln -s /usr/local/lib/python3.9/site-packages/ / -r
       - cd /drone/src/myproject/ 
       - python3 -m pip install -r requirements.txt
-      - ln -s /usr/local/lib/python3.9/site-packages/ / -r
       # - cp /drone/src/ / -r
 
   # - name: build-docker
