@@ -41,7 +41,7 @@ steps:
       path: /drone/src # 容器内目录 绝对路径
     commands: # 执行命令
       - cd /drone/src/myproject/ 
-      - python3 -m pip install -r requirements.txt
+      - python3 -m pip install -r requirements.txt 
       
 
   # - name: build-docker
