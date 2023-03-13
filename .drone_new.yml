@@ -12,7 +12,7 @@ volumes: # 声明数据卷
 - name: node_modules # 前端依赖包
   host: 
     path: /volumes/drone/node_modules  # 宿主机目录
-- name: backend_code
+- name: source
   host:
     path: /volumes/drone/myproject
 
@@ -26,8 +26,8 @@ steps:
     volumes: # 挂载数据卷
     - name: node_modules # 数据卷名称
       path: /drone/src/vue-element-admin-new/node_modules # 容器内目录 绝对路径
-    - name: backend_code
-      paht: /drone/src/myproject
+    - name: source
+      paht: /myproject
     commands: # 执行命令
       - cd /drone/src/vue-element-admin-new/ #
       - npm config set registry https://registry.npm.taobao.org # 切换淘宝镜像
@@ -36,7 +36,7 @@ steps:
       - npm install # 安装node_modules包
       - export NODE_OPTIONS=--openssl-legacy-provider
       - npm run build:stage # 执行编译   
-      - ls
+      - cp -f /drone/src /myproject -r
 
 
 
