@@ -33,7 +33,7 @@ steps:
 
   - name: code-scp
     image: appleboy/drone-scp
-    depends_on: [build-fronted-dep] # 依赖的步骤 
+    # depends_on: [build-fronted-dep] # 依赖的步骤 
     settings:
       host: 
         from_secret: ssh_host
