@@ -38,7 +38,7 @@ steps:
     depends_on: [build-fronted]
     volumes: # 挂载数据卷
     - name: code # 数据卷名称
-      path: /drone/src # 容器内目录 绝对路径
+      path: /drone/src/* # 容器内目录 绝对路径
     commands: # 执行命令
       - cd /drone/src/myproject/ 
       - python3 -m pip install -r requirements.txt 
