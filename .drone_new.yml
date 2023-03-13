@@ -14,7 +14,7 @@ volumes: # 声明数据卷
     path: /volumes/drone/node_modules  # 宿主机目录
 - name: source
   host:
-    path: /volumes/drone/myproject
+    path: /volumes/drone/myproject/
 
 clone:
   disable: false # 启用拉取
@@ -27,7 +27,7 @@ steps:
     - name: node_modules # 数据卷名称
       path: /drone/src/vue-element-admin-new/node_modules # 容器内目录 绝对路径
     - name: source
-      paht: /myproject
+      paht: /myproject/
     commands: # 执行命令
       - cd /drone/src/vue-element-admin-new/ #
       - npm config set registry https://registry.npm.taobao.org # 切换淘宝镜像
