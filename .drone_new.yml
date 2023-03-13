@@ -3,15 +3,15 @@ type: docker
 name: build
 
 volumes: # 声明数据卷
-  - name: code
-    host:
-      path: /volumes/drone/code
-  - name: node_modules # 数据卷名称
-    host: # Host Volume
-      path: /volumes/drone/node_modules # 宿主机目录
-  - name: docker
-    host:
-      path: /var/run/docker.sock
+- name: code
+  host:
+    path: /volumes/drone/code
+- name: node_modules # 数据卷名称
+  host: # Host Volume
+    path: /volumes/drone/node_modules # 宿主机目录
+- name: docker
+  host:
+    path: /var/run/docker.sock
 clone:
   disable: false # 启用拉取
 
@@ -20,10 +20,10 @@ steps:
     image: node:latest # 使用镜像
     depends_on: [clone] # 依赖的步骤
     volumes: # 挂载数据卷
-      - name: node_modules # 数据卷名称
-        path: /drone/src/vue-element-admin-new/node_modules # 容器内目录 绝对路径
-      - neme: code
-        path: /drone/src
+    - name: node_modules # 数据卷名称
+      path: /drone/src/vue-element-admin-new/node_modules # 容器内目录 绝对路径
+    - neme: code
+      path: /drone/src
     commands: # 执行命令
       - cd /drone/src/
       - ls
