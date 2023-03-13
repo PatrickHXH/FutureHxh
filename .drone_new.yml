@@ -10,8 +10,8 @@ volumes: # 声明数据卷
     host: # Host Volume
       path: /volumes/drone/node_modules # 宿主机目录
   - name: docker
-      host:
-        path: /var/run/docker.sock
+    host:
+      path: /var/run/docker.sock
 clone:
   disable: false # 启用拉取
 
