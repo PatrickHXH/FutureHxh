@@ -52,9 +52,8 @@ steps:
       # 设置超时
       command_timeout: 30m
       # 编写脚本，可根据具体情况编写
-      depends_on:
-        - build-fronted
-      script:
+      depends_on: [build-fronted]
+
   # - name: build-docker
   #   image: plugins/docker
   #   volumes: # 将容器内目录挂载到宿主机，仓库需要开启Trusted设置
