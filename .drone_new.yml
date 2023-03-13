@@ -12,9 +12,9 @@ volumes: # 声明数据卷
 - name: node_modules # 前端依赖包
   host: 
     path: /volumes/drone/node_modules  # 宿主机目录
-- name: source
+- name: dist
   host:
-    path: /volumes/drone/myproject/
+    path: /volumes/drone/dist/
 
 clone:
   disable: false # 启用拉取
@@ -26,11 +26,9 @@ steps:
     volumes: # 挂载数据卷
     - name: node_modules # 数据卷名称
       path: /drone/src/vue-element-admin-new/node_modules # 容器内目录 绝对路径
-    # - name: source
-    #   paht: /myproject/
+    - name: dist
+      paht: /drone/src/vue-element-admin-new/dist
     commands: # 执行命令
-      - cd /drone/src/
-      - ls
       - cd /drone/src/vue-element-admin-new/ #
       - npm config set registry https://registry.npm.taobao.org # 切换淘宝镜像
       - git config --global http.sslverify "false"
