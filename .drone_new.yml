@@ -32,14 +32,14 @@ steps:
       - npm install # 安装node_modules包
       - export NODE_OPTIONS=--openssl-legacy-provider
       - npm run build:stage # 执行编译   
-
-  - name: build-docker
-    image: plugins/docker
-    volumes: # 将容器内目录挂载到宿主机，仓库需要开启Trusted设置
-      - name: code
-        path: /drone/src/* # 将应用打包好的Jar和执行脚本挂载出来
-      - name: docker
-        path: /var/run/docker.sock # 挂载宿主机的docker
+      - ls
+  # - name: build-docker
+  #   image: plugins/docker
+  #   volumes: # 将容器内目录挂载到宿主机，仓库需要开启Trusted设置
+  #     - name: code
+  #       path: /drone/src/* # 将应用打包好的Jar和执行脚本挂载出来
+  #     - name: docker
+  #       path: /var/run/docker.sock # 挂载宿主机的docker
   # - name: code-scp    # 将代码文件放入指定目录
   #   image: appleboy/drone-scp
   #   depends_on: [build-fronted]
@@ -58,6 +58,8 @@ steps:
   #     command_timeout: 30m
   #     target: /volumes/drone/code/
   #     source: ./
+      
+      
       # 编写脚本，可根据具体情况编写
   #     script:
   #       - echo ====开始部署=======
