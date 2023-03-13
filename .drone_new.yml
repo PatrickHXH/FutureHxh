@@ -30,9 +30,10 @@ steps:
       - npm install # 安装node_modules包
       - export NODE_OPTIONS=--openssl-legacy-provider
       - npm run build:stage # 执行编译   
-      
+
   - name: code-scp
     image: appleboy/drone-scp
+    depends_on: [build-fronted-dep] # 依赖的步骤
     settings:
       host: 
         from_secret: ssh_host
@@ -40,7 +41,7 @@ steps:
         from_secret: ssh_user
       port: 22
       password: 
-        from_secret: ssh_password
+        from_secret: ssh_pwd
       target: /volumes/drone/source-code/
       source: docker-compose.yml
 
