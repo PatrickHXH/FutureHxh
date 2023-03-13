@@ -37,8 +37,10 @@ steps:
     # - name: site-packages # 数据卷名称
     #   path: /usr/local/lib/python3.9/site-packages # 容器内目录 绝对路径
     commands: # 执行命令
-      - cd /drone/src/myproject/ 
-      - python3 -m pip install -r requirements.txt
+      - cd /usr/local/lib/python3.9
+      - ls
+      # - cd /drone/src/myproject/ 
+      # - python3 -m pip install -r requirements.txt
       
 
   # - name: build-docker
