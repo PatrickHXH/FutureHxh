@@ -9,9 +9,9 @@ volumes: # 声明数据卷
 - name: node_modules # 前端依赖包
   host: 
     path: /volumes/drone/node_modules  # 宿主机目录
-- name: source-code
-  host:
-    path: /volumes/drone/source-code/
+# - name: source-code
+#   host:
+#     path: /volumes/drone/source-code/
 clone:
   disable: false # 启用拉取
 
@@ -37,13 +37,13 @@ steps:
     volumes: # 挂载数据卷
     - name: site-packages # 数据卷名称
       path: /site-packages/ # 容器内目录 绝对路径
-    - name: source-code
-      paht: /source-code/
+    # - name: source-code
+    #   paht: /source-code/
     commands: # 执行命令
       - cd /drone/src/myproject/ 
       - python3 -m pip install -r requirements.txt
-      - cp -f /usr/local/lib/python3.9/site-packages/ / -r
-      - cp /drone/src/ / -r
+      - ln -s /usr/local/lib/python3.9/site-packages/ / -r
+      # - cp /drone/src/ / -r
 
   # - name: build-docker
   #   image: plugins/docker
