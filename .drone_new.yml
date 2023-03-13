@@ -29,6 +29,7 @@ steps:
     # - name: source-code
     #   paht: /source-code
     commands: # 执行命令
+      - mkdir /source-code/
       - ln -s /drone/src/ /source-code/
       - cd /souce-code
       - ls
