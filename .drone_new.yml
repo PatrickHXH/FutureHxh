@@ -14,7 +14,7 @@ volumes: # 声明数据卷
     path: /volumes/drone/node_modules  # 宿主机目录
 - name: dist
   host:
-    path: /volumes/drone/dist/
+    path: /volumes/drone/dist
 
 clone:
   disable: false # 启用拉取
