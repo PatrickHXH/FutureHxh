@@ -5,7 +5,7 @@ name: build
 volumes: # 声明数据卷
 - name: code
   host:
-    path: /volumes/drone/code
+    path: /volumes/drone/src
 - name: node_modules # 数据卷名称
   host: # Host Volume
     path: /volumes/drone/node_modules # 宿主机目录
@@ -34,25 +34,15 @@ steps:
       - npm run build:stage # 执行编译   
   
   - name: deploy-project
-    image: appleboy/drone-ssh
+    image: python:3.9
+    depends_on: [build-fronted]
     volumes: # 挂载数据卷
     - name: code # 数据卷名称
       path: /drone/src # 容器内目录 绝对路径
-    settings:
-      # 部署主机的IP  
-      host: 121.4.54.4
-      # 部署主机的登录账号，需从Drone中获取密钥名ssh_user的值，创建方式见下面
-      username:
-        from_secret: ssh_user
-      # 部署主机的登录密码，需从Drone中获取密钥名ssh_pwd的值，创建方式见下面
-      password:
-        from_secret: ssh_pwd
-      # 端口号
-      port: 22
-      # 设置超时
-      command_timeout: 30m
-      # 编写脚本，可根据具体情况编写
-      depends_on: [build-fronted]
+    commands: # 执行命令
+      - cd /drone/src/myproject/ 
+      - python3 -m pip install -r requirements.txt
+      
 
   # - name: build-docker
   #   image: plugins/docker
