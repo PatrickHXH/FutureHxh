@@ -39,7 +39,7 @@ steps:
       - npm run build:stage # 执行编译   
       - echo ====复制前端静态资源=======
       - cp -af /drone/src/vue-element-admin-new/dist /fronted_build -r
-  
+
   - name: build-backend-dep  #构建后端
     image: python:3.9
     depends_on: [build-fronted-dep]
@@ -48,7 +48,7 @@ steps:
       path: /usr/local/lib/python3.9/site-packages/
     commands: # 执行命令
       - python -m ensurepip
-      - easy_install pip
+      - pip easy_install 
       - python -m pip install --upgrade pip
       - python -m pip install -r requirements.txt
 
