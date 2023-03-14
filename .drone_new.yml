@@ -44,9 +44,9 @@ steps:
     image: python:3.9
     depends_on: [build-fronted-dep]
     volumes: #挂载数据卷
-    -name: site-packages
-     path: /usr/local/lib/python3.9/site-packages/
+    - name: site-packages
+      path: /usr/local/lib/python3.9/site-packages/
     commands: # 执行命令
       - python3 -m pip install -r requirements.txt
-      
+
 
