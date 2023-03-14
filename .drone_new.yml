@@ -50,6 +50,7 @@ steps:
       - python -m ensurepip
       - pip install easy_install 
       - python -m pip install --upgrade pip
+      - cd /drone/src/myproject/
       - python -m pip install -r requirements.txt
 
 
