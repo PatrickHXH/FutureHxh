@@ -6,16 +6,18 @@ workspace:
   path: /drone/src
 
 volumes: # 声明数据卷
-- name: site-packages #
+- name: site-packages                   #python依赖包宿主机目录
   host:  
-    path: /volumes/drone/site-packages/ # python依赖包宿主机目录
-- name: node_modules 
+    path: /volumes/drone/site-packages/ 
+- name: node_modules                    #vue依赖包宿主机目录
   host: 
-    path: /volumes/drone/node_modules  # vue依赖包宿主机目录
-- name: fronted_build    
+    path: /volumes/drone/node_modules  
+- name: fronted_build                   #vue宿主机构建路径
   host:
-    path: /volumes/drone/fronted_build  #vue宿主机构建路径
-
+    path: /volumes/drone/fronted_build  
+- name: backend_build                   #挂载源代码路径
+  host:
+    path: /volumes/drone/backend_build
 clone:
   disable: false # 启用拉取
 
@@ -40,17 +42,21 @@ steps:
       - echo ====复制前端静态资源=======
       - cp -af /drone/src/vue-element-admin-new/dist /fronted_build -r
 
-  - name: build-backend-dep  #构建后端
+  - name: build-backend-dep  #安装后端依赖
     image: python:3.9
     depends_on: [build-fronted-dep]
     volumes: #挂载数据卷
     - name: site-packages
       path: /usr/local/lib/python3.9/site-packages/
+    - name: backend_build
+      path: /backend_build
     commands: # 执行命令
       - python -m ensurepip
       - pip install easy_install 
       - python -m pip install --upgrade pip
       - cd /drone/src/myproject/
       - python -m pip install -r requirements.txt
-
-
+      - echo ====复制后端源码=======
+      - cp -af /drone/src/compose /backend_build -r
+      - cp -af /drone/src/myproject /backend_build -r
+      - cp -af /drone/src/docker-compose.yml /backend_build -r
