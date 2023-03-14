@@ -23,13 +23,13 @@ WORKDIR $APP_HOME
 ADD . $APP_HOME
 
 # 更新pip版本
-RUN /usr/local/bin/python -m pip install --upgrade pip
+# RUN /usr/local/bin/python -m pip install --upgrade pip  #使用drone安装
 
 # 添加当前依赖至镜像
 ADD ./requirements.txt $APP_HOME/requirements.txt
 
 # 安装项目依赖
-RUN python3 -m pip install -r requirements.txt
+# RUN python3 -m pip install -r requirements.txt   #使用drone安装
 
 # 移除\r in windows
 RUN sed -i 's/\r//' ./start.sh
