@@ -63,6 +63,7 @@ steps:
 
   - name: deploy-project
     image: appleboy/drone-ssh
+    depends_on: [build-backend-dep]
     settings: 
       # 部署主机的IP  
       host: 121.4.54.4
