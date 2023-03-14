@@ -60,3 +60,36 @@ steps:
       - cp -af /drone/src/compose /backend_build -r
       - cp -af /drone/src/myproject /backend_build -r
       - cp -af /drone/src/docker-compose.yml /backend_build -r
+
+  - name: deploy-project
+    image: appleboy/drone-ssh
+    settings:
+      # 部署主机的IP  
+      host: 121.4.54.4
+      # 部署主机的登录账号，需从Drone中获取密钥名ssh_user的值，创建方式见下面
+      username:
+        from_secret: ssh_user
+      # 部署主机的登录密码，需从Drone中获取密钥名ssh_pwd的值，创建方式见下面
+      password:
+        from_secret: ssh_pwd
+      # 端口号
+      port: 22
+      # 设置超时
+      command_timeout: 30m
+      # 编写脚本，可根据具体情况编写
+      depends_on:
+        - drone/git
+      script:
+        - echo ====开始部署=======
+        - echo ====重新构建镜像=======
+        - cd /volumes/drone/backend_build
+        - docker-compose stop
+        - docker-compose build
+        - echo ====重新启动容器=======
+        - docker-compose up -d
+        - echo ====删除所有为None的镜像=======
+        - docker rmi $(docker images -f "dangling=true" -q)
+        - echo ====清除日志/无用镜像、容器、卷======
+        - cat /dev/null > *-json.log
+        - docker system prune -f
+        - echo =======部署结束=======

@@ -6,8 +6,6 @@ RUN ln -fs /usr/bin/python3.9 /usr/bin/python3
 # 安装netcat
 RUN apt-get update && apt install -y netcat
 
-# 镜像作者大江狗
-MAINTAINER DJG
 
 # 设置 python 环境变量
 ENV PYTHONDONTWRITEBYTECODE 1
