@@ -87,7 +87,7 @@ npm run dev
 
 ### 前提：
 
-服务器环境安装：Docker  || Docker-compose || Github || Node
+服务器环境安装：Docker  || Docker-compose
 
 ### 安装:
 * 修改drone.yml配置
