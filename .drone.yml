@@ -6,9 +6,9 @@ workspace:
   path: /drone/src
 
 volumes: # 声明数据卷
-- name: site-packages                   #python依赖包宿主机目录
-  host:  
-    path: /volumes/drone/site-packages/ 
+# - name: site-packages                   #python依赖包宿主机目录
+#   host:  
+#     path: /volumes/drone/site-packages/ 
 - name: node_modules                    #vue依赖包宿主机目录
   host: 
     path: /volumes/drone/node_modules  
@@ -46,16 +46,16 @@ steps:
     image: python:3.9
     depends_on: [build-fronted-dep]
     volumes: #挂载数据卷
-    - name: site-packages
-      path: /usr/local/lib/python3.9/site-packages/
+    # - name: site-packages
+    #   path: /usr/local/lib/python3.9/site-packages/
     - name: backend_build
       path: /backend_build
     commands: # 执行命令
-      - python -m ensurepip
-      - pip install easy_install 
-      - python -m pip install --upgrade pip
-      - cd /drone/src/myproject/
-      - python -m pip install -r requirements.txt
+      # - python -m ensurepip
+      # - pip install easy_install 
+      # - python -m pip install --upgrade pip
+      # - cd /drone/src/myproject/
+      # - python -m pip install -r requirements.txt
       - echo ====复制后端源码=======
       - cp -af /drone/src/compose /backend_build -r
       - cp -af /drone/src/myproject /backend_build -r

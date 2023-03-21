@@ -19,8 +19,6 @@ ENV APP_HOME=/var/www/html/myproject
 RUN mkdir -p $APP_HOME
 WORKDIR $APP_HOME
 
-# 将当前目录加入到工作目录中（. 表示当前目录）
-ADD . $APP_HOME
 
 # 更新pip版本
 # RUN /usr/local/bin/python -m pip install --upgrade pip  #使用drone安装
@@ -31,6 +29,9 @@ ADD ./requirements.txt $APP_HOME/requirements.txt
 # 安装项目依赖
 # RUN python3 -m pip install -r requirements.txt   #使用drone安装
 RUN --mount=type=cache,target=/root/.cache/pip pip install -r requirements.txt
+
+# 将当前目录加入到工作目录中（. 表示当前目录）
+ADD . $APP_HOME
 
 # 移除\r in windows
 RUN sed -i 's/\r//' ./start.sh
