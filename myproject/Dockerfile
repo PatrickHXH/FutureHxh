@@ -29,7 +29,7 @@ ADD . $APP_HOME
 ADD ./requirements.txt $APP_HOME/requirements.txt
 
 # 安装项目依赖
-# RUN python3 -m pip install -r requirements.txt   #使用drone安装
+RUN python3 -m pip install -r requirements.txt   #使用drone安装
 
 # 移除\r in windows
 RUN sed -i 's/\r//' ./start.sh
