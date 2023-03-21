@@ -15,7 +15,7 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
+print("项目根目录：",BASE_DIR)
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
@@ -152,9 +152,9 @@ REPORT_DIR = os.path.join(BASE_DIR, "backendstatic", "reports")
 # 设置静态目录
 STATIC_URL = '/backendstatic/'
 # STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, "backendstatic"),
+#     os.path.join(BASE_DIR, "/backendstatic/"),
 # ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'backendstatic')
+STATIC_ROOT = os.path.join(BASE_DIR, 'backendstatic','reports').replace('\\','/')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
