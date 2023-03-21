@@ -65,6 +65,7 @@ services:
       - ./myproject/backendstatic:/var/www/html/myproject/backendstatic # 以数据卷挂载容器内static文件
       #- media_vol:/var/www/html/myproject/media # 以数据卷挂载容器内用户上传媒体文件
       - ./compose/uwsgi:/tmp # 挂载uwsgi日志
+      # - /volumes/drone/backend_build/site-packages/:/usr/local/lib/python3.9/site-packages/
     networks:
       - nginx_network
       - db_network  
