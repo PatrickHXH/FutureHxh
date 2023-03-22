@@ -1,6 +1,6 @@
 # 测试小助手
 
-基于django-ninja+vue-element开发的平台，目的是为了帮助测试人员提示测试效率，及集成相关辅助测试工具
+基于django-ninja+vue-element开发的平台，目的是为了帮助测试人员提升测试效率，及集成相关辅助测试工具
 
 ## Project
 
@@ -125,4 +125,19 @@ Drone服务地址：http:$ip:8888
 * 修改.drone.yml配置
 ```` 
 详见.drone.yml配置注释
+````
+* 提升构建速度
+```` 
+修改/etc/docker/daemon.json文件
+{
+  "features": {
+    "buildkit" : true
+  }
+}
+
+重启Docker服务：
+systemctl daemon-reload
+systemctl restart docker
+
+不改动requirements.txt包情况下会自动使用缓存构建
 ````
