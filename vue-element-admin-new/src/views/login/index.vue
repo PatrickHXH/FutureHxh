@@ -113,7 +113,7 @@ export default {
       redirect: undefined,
       otherQuery: {}
     }
-  },
+  }, 
   watch: {
     $route: {
       handler: function(route) {
