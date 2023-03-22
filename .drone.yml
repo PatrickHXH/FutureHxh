@@ -40,6 +40,7 @@ steps:
       - npm cache clean --force
       - npm run build:stage # 执行编译   
       - echo ====复制前端静态资源=======
+      - rm -rf /fronted_build/dist/
       - cp -af /drone/src/vue-element-admin-new/dist/ /fronted_build/dist/ -r
 
   - name: build-backend-dep  #安装后端依赖
