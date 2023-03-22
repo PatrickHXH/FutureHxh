@@ -165,7 +165,8 @@ export default {
               this.loading = false
               Message.success('登陆成功')
             } else {
-              Message.error(resp.data.error.msg)
+              this.loading=false
+              Message.error(resp.error.msg)
             }
           })
             .catch(() => {
