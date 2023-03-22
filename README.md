@@ -65,11 +65,13 @@ CACHES = {
 ```` 
 cd myproject
 
-python manage makemigrations
+python manage.py collectstatic
 
-python manage migrate
+python manage.py makemigrations
 
-python manage runserver
+python manage.py migrate
+
+python manage.py runserver
 ````
 
 * 启动前端服务
