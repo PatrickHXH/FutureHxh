@@ -60,6 +60,10 @@ CACHES = {
     }
 }
 ````
+* 创建数据库
+```` 
+create database django_demo default character set utf8mb4 collate utf8mb4_unicode_ci;
+````
 
 * 启动后端服务
 ```` 
