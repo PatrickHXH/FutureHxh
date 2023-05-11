@@ -1,26 +1,24 @@
 <template>
   <div class="app-container" style="height:calc(95vh)">
-    <el-card style="width: 100%;height: 100%;padding: 0px;">
+    <el-card style="width: 100%;height: 100%;padding: 0px;overflow:auto">
       <!-- 返回上一页 -->
       <div>
         <el-page-header content="授权接口" @back="returnLastPage" />
       </div>
       <div style="margin:20px 0" />
       <!-- 权限列表 -->
-      <div v-infinite-scroll="load" class="per-group" style="overflow:auto">
-        <el-checkbox v-model="checkAll" :indeterminate="isIndeterminate" @change="handleCheckAllChange">全选</el-checkbox>
-        <div style="margin: 15px 0;" />
-        <el-checkbox-group v-model="checkedPer" @change="handlecheckedPerChange">
-          <div v-infinite-scroll="true" class="per-group-cloumn">
-            <el-checkbox
-              v-for="per in perOptions"
-              :key="per.name"
-              class="per-group-item"
-              :label="per.id"
-            >{{ per.name }}</el-checkbox>
-          </div>
-        </el-checkbox-group>
-      </div>
+      <el-tree
+        :data="data"
+        show-checkbox
+        default-expand-all
+        node-key="id"
+        ref="tree"
+        highlight-current
+        :props="defaultProps"
+        @check="handleNodeClick"
+        :default-checked-keys="defaultCheckedKeys"
+        >
+      </el-tree>
       <!-- 保存按钮 -->
       <div style="margin:20px 0">
         <el-button type="primary" style="float:right" @click="saveRolePer()">保存</el-button>
@@ -32,18 +30,18 @@
 <script>
 import { Message } from 'element-ui'
 import PermissionApi from '@/api/permission'
-// const perOptions = [];
 export default {
   components: { },
   props: [],
   data() {
     return {
-      perOptions: [],
-      Options: [],
-      checkAll: false,
       checkedPer: [],
-      isIndeterminate: true,
-      count: 0
+      data: [],
+      defaultProps: {
+        children: 'group',
+        label: 'name'
+      },
+      defaultCheckedKeys:[]
     }
   },
   created() {
@@ -56,36 +54,57 @@ export default {
     returnLastPage() {
       this.$router.push({ path: '/permisssion/index' })
     },
-    handleCheckAllChange(val) {
-      console.log(val)
-      this.checkedPer = val ? this.Options : []
-      this.isIndeterminate = false
-    },
-    handlecheckedPerChange(value) {
-      const checkedCount = value.length
-      this.checkAll = checkedCount === this.perOptions.length
-      this.isIndeterminate = checkedCount > 0 && checkedCount < this.perOptions.length
-      this.checkedPer = []
-      for (let i = 0; i < value.length; i++) {
-        this.checkedPer.push(value[i])
-      }
-    },
+    handleCheckChange(data, checked, indeterminate) {
+        console.log(data, checked, indeterminate);
+      },
+    handleNodeClick(a,b) {
+        console.log(a,b);
+        this.checkedPer = b.checkedKeys
+      },
     async initPermissionList() {
       const resp = await PermissionApi.getroleperlist(this.$route.query.id)
       console.log('列表', resp)
       if (resp.data.success === true) {
-        // Message.success("获取列表成功")
         for (let i = 0; i < resp.data.result.length; i++) {
-          this.perOptions.push({
-            name: resp.data.result[i].name,
-            id: resp.data.result[i].id
+          switch(resp.data.result[i]["content_type"]){
+            case 4:
+              var name = "用户"
+              break
+            case 7:
+              var name = "邮箱"
+              break
+            case 8:
+              var name = "项目"
+              break
+            case 9:
+              var name = "查询记录"
+              break
+            case 13:
+              var name = "权限"
+              break
+            case 14:
+              var name = "菜单"
+              break
+            case 10:
+              var name = "定时任务"
+              break
+            default:
+              var name = "其他"
+              break
+          }
+          this.data.push({
+            name:name,
+            group:resp.data.result[i].group
           })
-          this.Options.push(resp.data.result[i].id)
-          if (resp.data.result[i].has_per === true) {
-            this.checkedPer.push(resp.data.result[i].id)
+          for(let j=0; j<resp.data.result[i].group.length;j++){
+            if(resp.data.result[i].group[j]["has_per"]===true){
+              this.defaultCheckedKeys.push(resp.data.result[i].group[j].id)
+            }
           }
         }
-        console.log(this.perOptions)
+        this.$nextTick(() => {
+          this.$refs.tree.setCheckedKeys(this.defaultCheckedKeys);
+        });
       } else {
         Message.error(resp.data.error.msg)
       }
@@ -102,7 +121,7 @@ export default {
       } else {
         Message.error(resp.data.error.msg)
       }
-    }
+    },
   }
 }
 </script>

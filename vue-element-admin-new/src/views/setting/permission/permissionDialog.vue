@@ -66,9 +66,27 @@ export default {
         ]
       },
       projectoptions: [{
-        label: '接口',
+        label: '用户',
+        value: 4
+      },{
+        label: '邮箱',
+        value: 7
+      },{
+        label: '项目',
+        value: 8
+      },{
+        label: '查询记录',
+        value: 9
+      },{
+        label: '权限',
         value: 13
-      }],
+      },{
+        label: '菜单',
+        value: 14
+      },{
+        label: '定时任务',
+        value: 10
+      },],
       inResize: true,
       showtitle: '',
       center: true

@@ -12,7 +12,7 @@ from django.shortcuts import get_object_or_404
 from rolepermission.models import permission_api
 from django.db.utils import IntegrityError
 from django.forms.models import model_to_dict
-
+import itertools
 router = Router(tags=["permission"])
 
 
@@ -107,11 +107,14 @@ def get_permission_list(request,role_id:int):
     list_resp = []
     if group_per_obj:
         #获取权限列表对象
-        per_obj = Permission.objects.filter(content_type_id=13).all()
+        per_obj = Permission.objects.filter(content_type_id__in=[4,7,8,9,10,13,14]).all()
         for i in range(0,len(per_obj)):
             per_dict = model_to_dict((list(per_obj)[i]))
             api_per_id = per_dict["id"]
-            api_per_obj = permission_api.objects.get(permission_id=api_per_id)
+            if api_per_id in [13,14,15,16]:
+                continue
+            else:
+                api_per_obj = permission_api.objects.get(permission_id=api_per_id)
             #给权限列表默人无权限字段为False
             per_dict["has_per"] = False
             per_dict["api_path"] = api_per_obj.api_path
@@ -127,16 +130,37 @@ def get_permission_list(request,role_id:int):
                     break
             #每次循环将字典结果添加到新的列表
             list_resp.append(per_dict)
-        return response(result=list_resp)
+        #将列表进行分组
+        group_list = []
+        key_func = lambda x: x["content_type"]
+        for key, group in itertools.groupby(list_resp, key_func):
+            group_list.append({
+                "content_type": key,
+                "group": list(group)
+            })
+        print("分组后的列表",group_list)
+        return response(result=group_list)
     else:
-        per_obj = Permission.objects.filter(content_type_id=13).all()
+        per_obj = Permission.objects.filter(content_type_id__in=[4,7,8,9,10,13,14]).all()
         for i in range(0,len(per_obj)):
             per_dict = model_to_dict((list(per_obj)[i]))
             api_per_id = per_dict["id"]
-            api_per_obj = permission_api.objects.get(permission_id=api_per_id)
+            if api_per_id in [13,14,15,16]:
+                continue
+            else:
+                api_per_obj = permission_api.objects.get(permission_id=api_per_id)
             #给权限列表默人无权限字段为False
             per_dict["api_path"] = api_per_obj.api_path
             per_dict["has_per"] = False
             list_resp.append(per_dict)
-        return response(result=list_resp)
+        #将列表进行分组
+        group_list = []
+        key_func = lambda x: x["content_type"]
+        for key, group in itertools.groupby(list_resp, key_func):
+            group_list.append({
+                "content_type": key,
+                "group": list(group)
+            })
+        print("分组后的列表", group_list)
+        return response(result=group_list)
 

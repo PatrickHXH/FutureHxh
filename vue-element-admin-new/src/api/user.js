@@ -31,3 +31,11 @@ export function getMenu(data) {
     data
   })
 }
+
+export function register(data) {
+  return request({
+    url: '/api/users/register/',
+    method: 'post',
+    data
+  })
+}
