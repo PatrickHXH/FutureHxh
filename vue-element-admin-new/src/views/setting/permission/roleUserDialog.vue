@@ -3,34 +3,27 @@
     <el-dialog
       :title="showtitle"
       :visible.sync="dialogVisible"
-      width="50%"
+      width="300px"
       :before-close="closeDialog"
       :center="center"
     >
-      <div style="text-align: center">
-        <el-transfer
-          v-model="value"
-          style="text-align: left; display: inline-block"
-          filterable
-          :right-default-checked="value"
-          :titles="['用户','授权']"
-          :button-texts="['']"
-          :format="{
-            noChecked: '${total}',
-            hasChecked: '${checked}/${total}'
-          }"
-          :data="userData"
-          @change="handleChange"
-        >
-          <span slot-scope="{ option }">{{ option.key }} - {{ option.label }}</span>
-          <el-button slot="right-footer" class="transfer-footer" size="small" @click="clear()">清空</el-button>
-          <!-- <el-button class="transfer-footer" slot="left-footer" size="small">操作</el-button> -->
-        </el-transfer>
+      <div style="text-align: center;overflow: auto">
+        <el-tree
+          :data="data"
+          show-checkbox
+          ref="tree"
+          highlight-current
+          node-key="id"
+          :props="defaultProps"
+          @check="handleNodeClick"
+          :default-checked-keys="defaultCheckedKeys"
+          >
+        </el-tree>
       </div>
-      <span slot="footer" class="dialog-footer">
+      <div slot="footer" class="dialog-footer" style="text-align: center;">
         <el-button cy-data="cancel-role" @click="closeDialog">取消</el-button>
         <el-button cy-data="save-role" type="primary" @click="addRoleUser()">保存</el-button>
-      </span>
+      </div>
     </el-dialog>
   </div>
 </template>
@@ -48,10 +41,14 @@ export default {
         user_id: []
       },
       dialogVisible: true,
-      userData: [],
       showtitle: '',
       center: true,
-      value: []
+      data: [],
+      defaultProps: {
+        children: 'children',
+        label: 'username'
+      },
+      defaultCheckedKeys:[]
     }
   },
   // 触发生命周期，判断标题
@@ -67,13 +64,9 @@ export default {
       console.log('closeDialog')
       this.$emit('cancel', {})
     },
-    handleChange(value, direction, movedKeys) {
-      console.log('你好', value, direction, movedKeys)
-    },
     // 新增用户授权
     async addRoleUser() {
       this.form.group_id = this.rid
-      this.form.user_id = this.value
       const resp = await RoleApi.addRoleUser(this.form)
       if (resp.data.success === true) {
         this.closeDialog()
@@ -87,19 +80,28 @@ export default {
       const resp = await RoleApi.getuserlist(id)
       if (resp.data.success === true) {
         for (let i = 0; i < resp.data.result.length; i++) {
-          if (resp.data.result[i].is_current_group === true) {
-            this.value.push(resp.data.result[i].id)
-          }
-          this.userData.push({
-            key: resp.data.result[i].id,
-            label: resp.data.result[i].username,
-            disabled: false
+          this.data.push({
+            id:resp.data.result[i].id,
+            username:resp.data.result[i].username,
           })
+          if(resp.data.result[i].is_current_group === true){
+            this.defaultCheckedKeys.push(resp.data.result[i].id)
+            this.form.user_id.push(resp.data.result[i].id)
+          }
         }
+        console.log("ceshi",this.defaultCheckedKeys)
+        this.$nextTick(() => {
+          this.$refs.tree.setCheckedKeys(this.defaultCheckedKeys);
+        });
       } else {
         Message.error(resp.data.error.msg)
       }
     },
+    //选择节点
+    handleNodeClick(a,b) {
+        console.log(a,b);
+        this.form.user_id = b.checkedKeys
+      },
     // 清空授权列表
     clear() {
       this.value = []
