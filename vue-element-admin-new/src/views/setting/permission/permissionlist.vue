@@ -28,11 +28,18 @@
           </template>
         </el-table-column>
         <el-table-column
-          label="权限编码"
+          label="分类"
           width="220"
         >
           <template slot-scope="scope">
-            <span style="margin-left: 10px">{{ scope.row.permission.codename }}</span>
+            <!-- <span style="margin-left: 10px">{{ content_type_name }}</span> -->
+            <span style="margin-left: 10px" v-if="scope.row.permission.content_type_id==4">{{ scope.row.permission.content_type_id==4?"用户":""}}</span>
+            <span style="margin-left: 10px" v-if="scope.row.permission.content_type_id==7">{{ scope.row.permission.content_type_id==7?"邮箱":""}}</span>
+            <span style="margin-left: 10px" v-if="scope.row.permission.content_type_id==8">{{ scope.row.permission.content_type_id==8?"项目":""}}</span>
+            <span style="margin-left: 10px" v-if="scope.row.permission.content_type_id==9">{{ scope.row.permission.content_type_id==9?"查询记录":""}}</span>
+            <span style="margin-left: 10px" v-if="scope.row.permission.content_type_id==10">{{ scope.row.permission.content_type_id==10?"定时器":""}}</span>
+            <span style="margin-left: 10px" v-if="scope.row.permission.content_type_id==13">{{ scope.row.permission.content_type_id==13?"权限":""}}</span>
+            <span style="margin-left: 10px" v-if="scope.row.permission.content_type_id==14">{{ scope.row.permission.content_type_id==14?"菜单":""}}</span>
           </template>
         </el-table-column>
         <el-table-column label="操作">
@@ -88,7 +95,8 @@ export default {
         page: 1,
         size: 10
       },
-      total: 0
+      total: 0,
+      content_type_name:""
     }
   },
   mounted() {

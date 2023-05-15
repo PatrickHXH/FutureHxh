@@ -14,8 +14,8 @@
         <el-form-item label="接口路径：" prop="api_path">
           <el-input v-model="form.api_path" cy-data="permissino-apipath" />
         </el-form-item>
-        <el-form-item label="项目代号：" prop="content_type_id">
-          <el-select v-model="form.content_type_id" placeholder="请选择项目代号" @change="changeproject">
+        <el-form-item label="权限分类：" prop="content_type_id">
+          <el-select v-model="form.content_type_id" placeholder="请选择分类" @change="changeproject">
             <el-option
               v-for="item in projectoptions"
               :key="item.value"
@@ -59,7 +59,7 @@ export default {
           { required: true, message: '请输入接口路径', trigger: 'blur' }
         ],
         content_type_id: [
-          { required: true, message: '请选择项目代号', trigger: 'change' }
+          { required: true, message: '请选择权限分类', trigger: 'change' }
         ],
         codename: [
           { required: true, message: '请输入codename', trigger: 'blur' }

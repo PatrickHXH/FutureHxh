@@ -52,6 +52,7 @@ class DetailPermissionIn(Schema):
 
 class PermissionSchema(Schema):
     id: int
+    content_type_id:int
     codename: str
     name: str
 
