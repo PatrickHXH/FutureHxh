@@ -19,7 +19,7 @@
           <el-menu-item index="1-4-1">日期计算器</el-menu-item>
           <el-menu-item index="1-4-2">转换时间戳</el-menu-item>
         </el-submenu>
-        <el-menu-item index="1-5">测试</el-menu-item>
+        <el-menu-item index="1-5">计时器</el-menu-item>
       </el-submenu>
       <el-submenu index="2">
         <template slot="title">文档教程</template>
@@ -31,7 +31,7 @@
       <toolsqlformat v-if="show == '1-2'" :key="1-2" />
       <toolTimeCalculationVue v-if="show == '1-4-1'" />
       <toolstamp v-if="show == '1-4-2'" />
-      <toolTest v-if="show == '1-5'" />
+      <toolTimer v-if="show == '1-5'" />
       <toolQuickCheck v-if="show =='2-1'" />
     </el-main>
 
@@ -44,6 +44,7 @@ import tooljsonpasrsing from '@/views/tool/TestTool/tool_JsonParsing.vue'
 import toolsqlformat from '@/views/tool/TestTool/tool_SqlFormat.vue'
 import toolTimeCalculationVue from './TestTool/tool_TimeCalculation.vue'
 import toolQuickCheck from '@/views/tool/TestTool/tool_QuickCheck.vue'
+import toolTimer from '@/views/tool/TestTool/tool_Timer.vue'
 import toolTest from '@/views/tool/TestTool/tool_Test.vue'
 export default {
   components: {
@@ -52,7 +53,8 @@ export default {
     toolsqlformat,
     toolTimeCalculationVue,
     toolQuickCheck,
-    toolTest
+    toolTest,
+    toolTimer
   },
   data() {
     return {
