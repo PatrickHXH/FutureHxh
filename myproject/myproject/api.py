@@ -8,6 +8,7 @@ from rolepermission.apis.menu_api import router as menu_router
 from rolepermission.apis.role_api import router as role_router
 from rolepermission.apis.permission_api import router as permisssion_router
 from performance.api import  router as performance_router
+from audio.apis.delayed_api import router as audio_router
 from ninja.security import HttpBearer
 from ninja.renderers import BaseRenderer
 from myproject.common import TokenMethod,Error
@@ -72,3 +73,4 @@ api.add_router("/rolepermission/", role_router)
 api.add_router("/permission/",permisssion_router)
 api.add_router("/menu/",menu_router)
 api.add_router("/performance/",performance_router)
+api.add_router("/audio/",audio_router)
