@@ -12,10 +12,22 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
+import yaml
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 print("项目根目录：",BASE_DIR)
+
+CONFIG_PATH = os.path.join(BASE_DIR,'myproject','config.yml').replace("\\","/")
+#读取config配置
+with open(CONFIG_PATH,encoding='utf-8') as f:
+    data = list(yaml.safe_load_all(f))
+if data[0]["env"] =="TEST":
+    envdata = data[0]["TEST"]
+else:
+    envdata = data[0]["PROD"]
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
@@ -23,7 +35,7 @@ print("项目根目录：",BASE_DIR)
 SECRET_KEY = 'django-insecure-g52%i^!&gfagn1s+1w_!^3%aq5142ar_s2*v-p%bn%_b0gi-&p'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = envdata["DEBUG"]
 
 ALLOWED_HOSTS = ["*"]
 
@@ -101,12 +113,11 @@ DATABASES = {
     # }
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME':'django_demo' ,  #测试数据库名
-        # 'HOST': '127.0.0.1',  # 测试数据库主机
-        'HOST': 'db',  # 生产数据库主机
-        'PORT': 3306,  # 数据库端口
-        'USER': 'root',  # 数据库用户名
-        'PASSWORD': 'patrick950207',  # 数据库用户密码
+        'NAME':envdata["DB"]["NAME"] ,  #数据库名
+        'HOST': envdata["DB"]["HOST"],  # 数据库主机
+        'PORT': envdata["DB"]["PORT"],  # 数据库端口
+        'USER': envdata["DB"]["USER"],  # 数据库用户名
+        'PASSWORD': envdata["DB"]["PASSWORD"],  # 数据库用户密码
 
     }
 }
@@ -180,8 +191,7 @@ REST_FRAMEWORK={ "DATETIME_FORMAT":"%Y-%m-%d %H:%M:%S" }
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://redis:6379",    #生产环境
-        # "LOCATION": "redis://127.0.0.1:6379", #测试环境
+        "LOCATION": envdata["REDIS_CACHES"]["LOCATION"],
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
@@ -193,8 +203,7 @@ CHANNEL_LAYERS = {
     "default":{
         "BACKEND":"channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-                # "hosts":["redis://127.0.0.1:6379/2"], #测试环境
-                "hosts":["redis://redis:6379/2"], #生产环境
+                "hosts":envdata["CHANNEL_LAYERS"]["HOST"],
         }
     }
 

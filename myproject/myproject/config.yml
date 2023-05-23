@@ -1,0 +1,27 @@
+env: PROD   #测试环境为TEST，生产环境为PROD，部署时需改为PROD
+
+TEST:
+  DEBUG: True
+  DB:
+    NAME: django_demo
+    HOST: 127.0.0.1
+    PORT: 3306
+    USER: root
+    PASSWORD: patrick950207
+  REDIS_CACHES:
+    LOCATION: redis://127.0.0.1:6379
+  CHANNEL_LAYERS:
+    HOST: redis://127.0.0.1:6379/2
+
+PROD:
+  DEBUG: False
+  DB:
+    NAME: django_demo
+    HOST: db
+    PORT: 3306
+    USER: root
+    PASSWORD: patrick950207
+  REDIS_CACHES:
+    LOCATION: redis://redis:6379
+  CHANNEL_LAYERS:
+    HOST: redis://redis:6379/2
