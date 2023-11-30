@@ -57,7 +57,6 @@ INSTALLED_APPS = [
     "rolepermission",
     "performance",
     'channels' ,   #websocket配置
-    'audio'
 ]
 
 MIDDLEWARE = [

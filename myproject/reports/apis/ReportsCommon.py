@@ -20,6 +20,7 @@ def SearchReport(project_id:int,email_id:int):
         return response(error=Error.USER_OR_PAWD_OR_SERVER_ERROR)
     if result == [] or result == None:
         return response(error=Error.REPORT_LIST_NONE)
+    #获取邮件id
     email_code = result["email_code"]
     # 下载附件
     # obj = get_object_or_404(SearchReportLog,project_id=project_id)

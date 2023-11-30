@@ -26,7 +26,7 @@ class email:
         return server
 
     #根据id获取邮件原始文本
-    def get_origin_text(id:int,email_user,password,pop3_server): #
+    def get_origin_text(id:int,email_user,password,pop3_server): 
         server = email.email_login(email_user,password,pop3_server)
         resp, lines, octets= server.retr(id)
         msg_content = b'\r\n'.join(lines).decode('utf-8')
@@ -121,19 +121,24 @@ class email:
         #获取每个id，拿每个id得到邮件内容，再判断时间和关键在不在邮箱内容里，如果在就返回id 和整个邮箱内容
         # now = datetime.datetime.now().strftime("%Y-%m-%d")
         server = email.email_login(email_user,password,pop3_server)
+        #获取邮箱数，邮箱大小
         email_num,email_size =server.stat()
         reportlist = []
         j = 0
+        #从最新邮箱开始查找，查找一百个停止
         for i in range(email_num,69,-1):
             j = j + 1
             list = []
             if j==101:
                 print("报告为空")
                 return reportlist
+            #获取邮件原始文本
             msg = email.get_origin_text(i,email_user,password,pop3_server)
+            #解析邮件
             analysis_msg = email.parse_msg(msg)
             if "Text" not  in analysis_msg.keys():
                 continue
+            #若关键词在邮箱正文，且时间为当前时间
             if  source in analysis_msg["Text"] and time in analysis_msg["Date"]:
                 analysis_msg["email_code"] = i
                 list = [i,analysis_msg]
